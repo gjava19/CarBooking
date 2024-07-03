@@ -216,7 +216,7 @@ public class DBCommunicator implements UserLoginListener, FriendshipListener{
 
     @Override
     public ArrayList<String> getFriends(int id) throws SQLException {
-        ArrayList<String> friends = new ArrayList<>();
+        ArrayList<String> friends = new ArrayList<String>();
         String sql = "SELECT id1, id2 FROM " + friendshipTable + " WHERE (id1 = ? OR id2 = ?) AND status = ?;";
 
         PreparedStatement ps = con.prepareStatement(sql);
@@ -240,7 +240,7 @@ public class DBCommunicator implements UserLoginListener, FriendshipListener{
 
     @Override
     public ArrayList<String> getSentRequest(int id) throws SQLException {
-        ArrayList<String> sentRequests = new ArrayList<>();
+        ArrayList<String> sentRequests = new ArrayList<String>();
         String sql = "SELECT id2 FROM " + friendshipTable + " WHERE id1 = ? AND status = ?;";
 
         return getStrings(id, sentRequests, sql, COLUMNS_FRIENDSHIP_ID2);
@@ -248,7 +248,7 @@ public class DBCommunicator implements UserLoginListener, FriendshipListener{
 
     @Override
     public ArrayList<String> getReceivedRequest(int id) throws SQLException {
-        ArrayList<String> receivedRequests = new ArrayList<>();
+        ArrayList<String> receivedRequests = new ArrayList<String>();
         String sql = "SELECT id1 FROM " + friendshipTable + " WHERE id2 = ? AND status = ?;";
 
         return getStrings(id, receivedRequests, sql, COLUMNS_FRIENDSHIP_ID1);
