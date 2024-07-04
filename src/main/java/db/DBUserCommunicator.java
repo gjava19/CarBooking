@@ -20,7 +20,7 @@ public class DBUserCommunicator {
     }
 
     public boolean createUser(String username, String password, String secretWord) throws SQLException {
-        if(checkUserexist(username)) {
+        if(checkUserExists(username)) {
             System.out.println("User already exists");
             return false;
         }
@@ -48,7 +48,7 @@ public class DBUserCommunicator {
         return affectedRows > 0;
     }
 
-    public boolean checkUserexist(String username) throws SQLException {
+    public boolean checkUserExists(String username) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + userTable + " WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, username);
@@ -69,13 +69,14 @@ public class DBUserCommunicator {
     }
 
     public boolean checkSecretWord(String username, String secretWord) throws SQLException {
-        String sql = "SELECT FROM " + userTable + " WHERE username = ? AND secret_secretword = ?";
+        String sql = "SELECT secret_word FROM " + userTable + " WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, username);
-        ps.setString(2, secretWord);
         ResultSet rs = ps.executeQuery();
 
-        return rs.next();
+        String actualSecretWord = "";
+        if(rs.next())  actualSecretWord = rs.getString(columnUserNames[COLUMNS_USER_SECRET_WORD]);
+        return actualSecretWord.equals(secretWord);
     }
 
     public String getUsername(int id) throws SQLException {
@@ -88,15 +89,15 @@ public class DBUserCommunicator {
         return "";
     }
 
-    public String getUserId(String username) throws SQLException {
+    public int getUserId(String username) throws SQLException {
         String sql = "SELECT id FROM user WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, username);
 
         ResultSet rs = ps.executeQuery();
-        if (rs.next()) return rs.getString(columnUserNames[COLUMNS_USER_ID]);
+        if (rs.next()) return rs.getInt(columnUserNames[COLUMNS_USER_ID]);
 
-        return "";
+        return -1;
     }
 
 }
