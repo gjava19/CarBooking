@@ -20,10 +20,10 @@ public class User {
         if(user.createUser(user2, "rume", "rime")) System.out.println("User " + user2 + " created");
         else System.out.println("User " + user2 + " not created");
 
-        if(user.checkUserexist("rame 1"))System.out.println("User rame 1 exists");
-        if(user.checkUserexist("rame 2"))System.out.println("User rame 2 exists");
-        int user1id = Integer.parseInt(user.getUserId(user1));
-        int user2id = Integer.parseInt(user.getUserId(user2));
+        if(user.checkUserExists("rame 1"))System.out.println("User rame 1 exists");
+        if(user.checkUserExists("rame 2"))System.out.println("User rame 2 exists");
+        int user1id = user.getUserId(user1);
+        int user2id = user.getUserId(user2);
 
         System.out.println("user1 id = " + user1id);
         System.out.println("user2 id = " + user2id);
