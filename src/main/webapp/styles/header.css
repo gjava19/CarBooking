@@ -1,0 +1,36 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 40px;
+}
+
+.header-icon{
+    height: 60px;
+    width: 260px;
+}
+
+.header-right{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.header-menu{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    text-align: center;
+    font-size: 20px;
+}
+
+.login-button{
+    font-size: 20px;
+    color: #FCC822;
+
+    border: 2px solid #FCC822;
+    background-color: #FFFFFF;
+
+    padding: 10px;
+}
