@@ -19,6 +19,14 @@ public class DBUserCommunicator {
         this.con = con;
     }
 
+    /**
+     * save new user information in database.
+     *
+     * @param username   client username (unique).
+     * @param password   client password (save encrypted).
+     * @param secretWord client answer to question (for restore password).
+     * @return           true if user created
+     */
     public boolean createUser(String username, String password, String secretWord) throws SQLException {
         if(checkUserExists(username)) {
             System.out.println("User already exists");
@@ -38,6 +46,13 @@ public class DBUserCommunicator {
         return true;
     }
 
+
+      /**
+     * check if username and password match (use while login)
+     * @param username  current client username
+     * @param password  current client password
+     * @return          true if they match
+     */
     public boolean deleteUser(String username) throws SQLException {
         if (!checkUserExists(username))
             return false;
@@ -51,6 +66,15 @@ public class DBUserCommunicator {
         return rowsDeleted == 1;
     }
 
+
+    /**
+     * change user password when restore it.
+     *
+     * @param username  username.
+     * @param password  new password.
+     * @return          true if password changed
+     */
+
     public boolean changePassword(String username, String password) throws SQLException{
         String sql = "UPDATE " + userTable + " SET password = ? WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -61,6 +85,13 @@ public class DBUserCommunicator {
         return affectedRows > 0;
     }
 
+
+    /**
+     * search if user exist.
+     *
+     * @param username search name.
+     * @return error code, 0 if all good and user dont exist. userExisit if user exist.
+     */
     public boolean checkUserExists(String username) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + userTable + " WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -71,6 +102,12 @@ public class DBUserCommunicator {
         return rs.next() ? rs.getInt(1) > 0 : false;
     }
 
+    /**
+     * check if username and password match (use while login)
+     * @param username  current client username
+     * @param password  current client password
+     * @return          true if they match
+     */
     public boolean checkPassword(String username, String password) throws SQLException {
         String sql = "SELECT * FROM " + userTable + " WHERE username = ? AND password = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -81,8 +118,14 @@ public class DBUserCommunicator {
         return rs.next();
     }
 
+    /**
+     * check if username and secretWord match (use while restroe password)
+     * @param username      current client username
+     * @param secretWord    current client secret word
+     * @return              true if they match
+     */
     public boolean checkSecretWord(String username, String secretWord) throws SQLException {
-        String sql = "SELECT secret_word FROM " + userTable + " WHERE username = ?";
+        String sql = "SELECT * FROM " + userTable + " WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
@@ -92,6 +135,11 @@ public class DBUserCommunicator {
         return actualSecretWord.equals(secretWord);
     }
 
+    /**
+     * by user id returns username (helps to connect two data table to each-other)
+     * @param id    current username id
+     * @return      username or empty string
+     */
     public String getUsername(int id) throws SQLException {
         String sql = "SELECT username FROM " + userTable + " WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -102,6 +150,11 @@ public class DBUserCommunicator {
         return "";
     }
 
+    /**
+     * by user username returns id (helps to connect two data table to each-other)
+     * @param username  current username
+     * @return          id or -1
+     */
     public int getUserId(String username) throws SQLException {
         String sql = "SELECT id FROM user WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
