@@ -8,8 +8,23 @@
 </head>
 <body>
 <jsp:include page="Header.jsp"/>
-<div>
-    Time on server <%= new java.util.Date()%>
-</div>
+
+    <main class="intro-main">
+        <div class="intro-content">
+            <h1>Welcome to QuizGrad</h1>
+            <p>Your ultimate platform to create, share, and take quizzes.</p>
+            <div class="intro-buttons">
+                <a href="" class="intro-button signup">Get Started</a>
+                <a href="login" class="intro-button login">Sign Up</a>
+            </div>
+        </div>
+        <div class="intro-image">
+            <img src="images/graduation-cap-large.png" alt="Quiz Image">
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 QuizGrad. All rights reserved.</p>
+        <div>Time on server <%= new java.util.Date()%></div>
+    </footer>
 </body>
 </html>

@@ -77,3 +77,85 @@ div{
     /* default text color */
     color: #E0E0E0;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.intro-main {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.intro-content {
+    max-width: 50%;
+}
+
+.intro-content h1 {
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.intro-content p {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.intro-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.intro-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.intro-button.signup {
+    background-color: #f5a623;
+    color: #fff;
+}
+
+.intro-button.login {
+    background-color: #fff;
+    color: #f5a623;
+    border: 1px solid #f5a623;
+}
+
+.intro-button.signup:hover {
+    background-color: #e59822;
+}
+
+.intro-button.login:hover {
+    background-color: #f5a623;
+    color: #fff;
+}
+
+.intro-image {
+    max-width: 50%;
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+}
+
+.footer {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+    color: #666;
+}
