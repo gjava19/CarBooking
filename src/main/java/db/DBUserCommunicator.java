@@ -38,6 +38,19 @@ public class DBUserCommunicator {
         return true;
     }
 
+    public boolean deleteUser(String username) throws SQLException {
+        if (!checkUserExists(username))
+            return false;
+
+        String sql = "delete from " + userTable + " where id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, getUserId(username));
+
+        int rowsDeleted = ps.executeUpdate();
+
+        return rowsDeleted == 1;
+    }
+
     public boolean changePassword(String username, String password) throws SQLException{
         String sql = "UPDATE " + userTable + " SET password = ? WHERE username = ?";
         PreparedStatement ps = con.prepareStatement(sql);
