@@ -48,10 +48,9 @@ public class DBUserCommunicator {
 
 
       /**
-     * check if username and password match (use while login)
+     * deletes user from db
      * @param username  current client username
-     * @param password  current client password
-     * @return          true if they match
+     * @return          true if user is deleted
      */
     public boolean deleteUser(String username) throws SQLException {
         if (!checkUserExists(username))
