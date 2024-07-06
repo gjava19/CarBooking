@@ -33,6 +33,7 @@ public class FriendshipController {
     public boolean getFriendsList(User user) throws SQLException {
         if( ! uCommunicator.checkUserExists(user.getUsername())) return false;
         ArrayList<String> friends = fCommunicator.getFriends(user.getId());
+        user.removeAllFriend(user);
         for(String friend : friends) {
 
             int id = uCommunicator.getUserId(friend);
@@ -52,6 +53,7 @@ public class FriendshipController {
         if( ! uCommunicator.checkUserExists(user.getUsername())) return false;
 
         ArrayList<String> sent = fCommunicator.getSentRequest(user.getId());
+        user.removeAllSent(user);
         for(String friend : sent){
 
             int id =  uCommunicator.getUserId(friend);
@@ -71,6 +73,7 @@ public class FriendshipController {
         if( ! uCommunicator.checkUserExists(user.getUsername())) return false;
 
         ArrayList<String> received = fCommunicator.getReceivedRequest(user.getId());
+        user.removeAllRequested(user);
         for(String candidate : received){
 
             int id =  uCommunicator.getUserId(candidate);
@@ -97,13 +100,13 @@ public class FriendshipController {
      * @return true if approved
      * @throws SQLException
      */
-    public boolean approveFriendship(User user1, User user2) throws SQLException {
+    public boolean approveFriendship(User user1, FriendInt user2) throws SQLException {
         boolean status = fCommunicator.changeStatus(user1.getId(), user2.getId(), DBFriendshipCommunicator.FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS);
         if( ! status) return false;
         user1.removeRequested(user2);
         user1.addFriend(user2);
-        user2.removeSent(user1);
-        user2.addFriend(user1);
+//        user2.removeSent(user1);
+//        user2.addFriend(user1);
 
         return true;
     }
@@ -116,14 +119,14 @@ public class FriendshipController {
      * @return true if rejected
      * @throws SQLException
      */
-    public boolean rejectFriendship(User user1, User user2) throws SQLException {
-        boolean status = fCommunicator.changeStatus(user1.getId(), user2.getId(), DBFriendshipCommunicator.FriendshipStatus.FRIENDSHIP_STATUS_STRANGERS);
+    public boolean rejectFriendship(User user1, FriendInt user2) throws SQLException {
+        boolean status = fCommunicator.makeStranger(user1.getId(), user2.getId());
         if(! status) return false;
         user1.removeFriend(user2);
         user1.removeRequested(user2);
 
-        user2.removeFriend(user1);
-        user2.removeSent(user1);
+//        user2.removeFriend(user1);
+//        user2.removeSent(user1);
 
         return true;
     }
@@ -136,11 +139,11 @@ public class FriendshipController {
      * @return true if sent
      * @throws SQLException
      */
-    public boolean sendFriendship(User user1, User user2) throws SQLException {
+    public boolean sendFriendship(User user1, FriendInt user2) throws SQLException {
         boolean status = fCommunicator.createRequest(user1.getId(), user2.getId());
         if(! status) return false;
-        user1.addRequested(user2);
-        user2.addSent(user2);
+        user1.addSent(user2);
+//        user2.addSent(user2);
 
         return true;
     }

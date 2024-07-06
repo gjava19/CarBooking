@@ -102,6 +102,13 @@ public class Usera {
         System.out.println(newUser2);
         System.out.println(newUser3);
 
+//        fcontroller.fillUserRelations(newUser1);
+//        fcontroller.fillUserRelations(newUser2);
+//        fcontroller.fillUserRelations(newUser3);
+//
+//        System.out.println(newUser1);
+//        System.out.println(newUser2);
+//        System.out.println(newUser3);
 
     }
 }

@@ -85,8 +85,8 @@ public class DBFriendshipCommunicator {
 
         ps.setInt(1,    id1);
         ps.setInt(2,    id2);
-        ps.setInt(1,    id2);
-        ps.setInt(2,    id1);
+        ps.setInt(3,    id2);
+        ps.setInt(4,    id1);
         int rowsDeleted = ps.executeUpdate();
 
         return rowsDeleted > 0;
