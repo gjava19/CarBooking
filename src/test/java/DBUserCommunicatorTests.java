@@ -1,5 +1,6 @@
 import db.DBConnector;
 import db.DBUserCommunicator;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,29 +13,30 @@ public class DBUserCommunicatorTests {
     private DBUserCommunicator user;
     private DBConnector conn;
 
+    private int userCountOld;
+
     @Before
-    public void prepareTables() {
+    public void prepareTables() throws SQLException {
         conn = new DBConnector();
         user = new DBUserCommunicator(conn.getCon());
-    }
 
-    @Test
-    public void testUser() throws SQLException {
-        int userCountOld = 0;
-        String sql = "select COUNT(*) from user";
+        userCountOld = 0;
+        String sql = "select max(id) from user";
         Statement stmt = conn.getCon().createStatement();
         ResultSet rs = stmt.executeQuery(sql);
         if (rs.next())
             userCountOld = rs.getInt(1);
+    }
 
-        int userID = userCountOld + 1;
+    @Test
+    public void testUser() throws SQLException {
         String username = getRandomStr();
         String password = getRandomStr();
         String secret = getRandomStr();
 
         // user exists
         Assert.assertTrue(user.createUser(username, password, secret));
-        Assert.assertEquals(userID, user.getUserId(username));
+        int userID = user.getUserId(username);
         Assert.assertTrue(user.checkUserExists(username));
         Assert.assertEquals(username, user.getUsername(userID));
         Assert.assertFalse(user.createUser(username, "", ""));
@@ -56,7 +58,20 @@ public class DBUserCommunicatorTests {
         Assert.assertTrue(user.changePassword(username, newPassword));
         Assert.assertFalse(user.checkPassword(username, password));
         Assert.assertTrue(user.checkPassword(username, newPassword));
+        Assert.assertFalse(user.changePassword(username.substring(1), newPassword));
 
+        // check delete user
+        Assert.assertFalse(user.deleteUser(username.substring(1)));
+        Assert.assertTrue(user.deleteUser(username));
+        Assert.assertFalse(user.checkUserExists(username));
+    }
+
+    @After
+    public void deleteTestData() throws SQLException {
+        String sql = "delete from user where id > ?";
+        PreparedStatement stmt = conn.getCon().prepareStatement(sql);
+        stmt.setInt(1, userCountOld);
+        stmt.executeUpdate();
     }
 
     private String getRandomStr(){
