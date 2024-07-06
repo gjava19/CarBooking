@@ -48,6 +48,12 @@ public class DBFriendshipCommunicator {
         return rs;
     }
 
+    /**
+     * checks status in freindshif table.
+     * @param id1   first user unique id.
+     * @param id2   second user unique id.
+     * @return      one from the FRIENDSHIP_STATUS.
+     */
     public FriendshipStatus getFriendshipstatus(int id1, int id2) throws SQLException {
         ResultSet result = findRowFriendship(id1, id2);
         String status = result.getString(COLUMNS_FRIENDSHIP_STATUS + 1);
@@ -66,6 +72,12 @@ public class DBFriendshipCommunicator {
         return FriendshipStatus.FRIENDSHIP_STATUS_STRANGERS;
     }
 
+    /**
+     * removes row from the sql table.
+     * @param id1   first user unique id.
+     * @param id2   second user unique id.
+     * @return      true if row deleted.
+     */
     public boolean makeStranger(int id1, int id2) throws SQLException {
         String sql = "DELETE FROM " + friendshipTable + " WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
 
@@ -79,6 +91,7 @@ public class DBFriendshipCommunicator {
 
         return rowsDeleted > 0;
     }
+
 
     private boolean checkRequestExist(int id1, int id2) throws SQLException {
         String checkSql = "SELECT COUNT(*) FROM " + friendshipTable + " WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
@@ -94,6 +107,12 @@ public class DBFriendshipCommunicator {
         return rs.getInt(1) > 0;
     }
 
+    /**
+     * create row in sql table.
+     * @param id1   first user unique id.
+     * @param id2   second user unique id.
+     * @return      true if row created.
+     */
     public boolean createRequest(int id1, int id2) throws SQLException {
         if(checkRequestExist(id1, id2)) return false;
         String sql = "INSERT INTO " + friendshipTable + " (id1, id2, status) VALUES (?, ?, ?);";
@@ -107,6 +126,13 @@ public class DBFriendshipCommunicator {
         return rowsInserted > 0;
     }
 
+    /**
+     * changes status in data table .
+     * @param id1       first user unique id.
+     * @param id2       second user unique id.
+     * @param status    value from FriendshipStatus(req == sent, res == sent, friends == friend else return false)
+     * @return          true if status changed.
+     */
     public boolean changeStatus(int id1, int id2, FriendshipStatus status) throws SQLException {
         String sql = "UPDATE " + friendshipTable + " SET status = ? WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
 
@@ -123,6 +149,12 @@ public class DBFriendshipCommunicator {
         return rowsUpdated > 0;
     }
 
+    /**
+     * get list of friends usernames.
+     *
+     * @param id    user id.
+     * @return      return list of friends usernames.
+     */
     public ArrayList<String> getFriends(int id) throws SQLException {
         ArrayList<String> friends = new ArrayList<String>();
         String sql = "SELECT id1, id2 FROM " + friendshipTable + " WHERE (id1 = ? OR id2 = ?) AND status = ?;";
@@ -146,6 +178,13 @@ public class DBFriendshipCommunicator {
         return friends;
     }
 
+    /**
+     * get list of people who were requested to become freinds
+     * by current user.
+     *
+     * @param id    user id.
+     * @return      return list of people.
+     */
     public ArrayList<String> getSentRequest(int id) throws SQLException {
         ArrayList<String> sentRequests = new ArrayList<String>();
         String sql = "SELECT id2 FROM " + friendshipTable + " WHERE id1 = ? AND status = ?;";
@@ -153,6 +192,12 @@ public class DBFriendshipCommunicator {
         return getStrings(id, sentRequests, sql, COLUMNS_FRIENDSHIP_ID2);
     }
 
+    /**
+     * get list of people which sent friend request to current id persone.
+     *
+     * @param id    user id.
+     * @return      return list of people.
+     */
     public ArrayList<String> getReceivedRequest(int id) throws SQLException {
         ArrayList<String> receivedRequests = new ArrayList<String>();
         String sql = "SELECT id1 FROM " + friendshipTable + " WHERE id2 = ? AND status = ?;";
