@@ -4,14 +4,26 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  
+
   <servlet>
     <servlet-name>users</servlet-name>
     <servlet-class>Servlets.UserServlet</servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
     <servlet-name>users</servlet-name>
     <url-pattern>/api/users</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>Servlets.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
 </web-app>
