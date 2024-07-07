@@ -1,6 +1,9 @@
 import MVController.FriendshipController;
 import MVController.UserController;
+import Models.Quiz;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import db.DBConnector;
+import db.DBQuizCommunicator;
 import db.DBUserCommunicator;
 import db.DBFriendshipCommunicator;
 
@@ -9,9 +12,10 @@ import Models.User;
 
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class Usera {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, JsonProcessingException {
 
         DBConnector dbCon = new DBConnector();
         DBUserCommunicator user = new DBUserCommunicator(dbCon.getCon());
@@ -102,13 +106,48 @@ public class Usera {
         System.out.println(newUser2);
         System.out.println(newUser3);
 
-//        fcontroller.fillUserRelations(newUser1);
-//        fcontroller.fillUserRelations(newUser2);
-//        fcontroller.fillUserRelations(newUser3);
-//
-//        System.out.println(newUser1);
-//        System.out.println(newUser2);
-//        System.out.println(newUser3);
+        fcontroller.fillUserRelations(newUser1);
+        fcontroller.fillUserRelations(newUser2);
+        fcontroller.fillUserRelations(newUser3);
+
+        System.out.println(newUser1);
+        System.out.println(newUser2);
+        System.out.println(newUser3);
+
+        // quiz databases
+        System.out.println("\r\n\n\n<<<<<<<<<<<<< quiz datatables >>>>>>>>>>>>>\r\n\n\n");
+
+        boolean randomQuestion = true;
+        boolean immediateAnswer = true;
+        boolean multiplePageQuiz = false;
+
+        int id = 199;
+        int userId = 100;
+
+        String name = "slay quiz";
+        String description = "slay quiz is cool";
+
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("question1", "answer1");
+        map.put("question2", "answer2");
+
+        Quiz quiz = new Quiz(randomQuestion, immediateAnswer, multiplePageQuiz,
+                                id, userId, name, description, map);
+        DBQuizCommunicator quizCommunicator = new DBQuizCommunicator(dbCon);
+
+        if(quizCommunicator.createQuiz(quiz))   System.out.println("quiz created");
+        else                                    System.out.println("quiz Already exist");
+
+        if(quizCommunicator.checkQuizExists(quiz.getName())){
+            System.out.println("quiz exist");
+
+            Quiz newQuiz = quizCommunicator.getQuizByName(quiz.getName());
+            System.out.println("get quiz " + newQuiz.toString());
+        }else{
+            System.out.println("quiz dont exist");
+        }
+
+        System.out.println("created quiz " + quiz.toString());
 
     }
 }
