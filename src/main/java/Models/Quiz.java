@@ -1,6 +1,8 @@
 package Models;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import Models.QuestionParameters;
 
 public class Quiz {
     private boolean randomQuestion;
@@ -13,14 +15,14 @@ public class Quiz {
     private String name;
     private String description;
 
-    private HashMap <String, String> questions;
+    private HashMap<QuestionType, QuestionParameters> questions;
 
     public Quiz(){}
 
     public Quiz(boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz,
                 int id, int userId,
                 String name, String description,
-                HashMap<String, String> questions) {
+                HashMap<QuestionType, QuestionParameters> questions) {
         this.randomQuestion = randomQuestion;
         this.immediateAnswer = immediateAnswer;
         this.multiplePageQuiz = multiplePageQuiz;
@@ -60,7 +62,7 @@ public class Quiz {
         return description;
     }
 
-    public HashMap<String, String> getQuestions() {
+    public HashMap<QuestionType, QuestionParameters> getQuestions() {
         return questions;
     }
 
@@ -92,7 +94,7 @@ public class Quiz {
         this.description = description;
     }
 
-    public void setQuestions(HashMap<String, String> questions) {
+    public void setQuestions(HashMap<QuestionType, QuestionParameters> questions) {
         this.questions = questions;
     }
 
@@ -106,8 +108,9 @@ public class Quiz {
         result += "userId = " + userId + "\r\n";
         result += "name = " + name + "\r\n";
         result += "description = " + description + "\r\n";
-        result += "questions = " + questions.toString() + "\r\n";
+        if(questions != null)result += "questions = " + questions.toString() + "\r\n";
 
         return result;
     }
+
 }

@@ -1,5 +1,7 @@
 package db;
 
+import Models.QuestionParameters;
+import Models.QuestionType;
 import Models.Quiz;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class DBQuizCommunicator {
     /**
@@ -164,9 +167,9 @@ public class DBQuizCommunicator {
 
         String quizDataJson = rs.getString("quiz_data");
         ObjectMapper objectMapper = new ObjectMapper();
-        Object quizData = objectMapper.readValue(quizDataJson, Object.class);
+        Object quizData =  objectMapper.readValue(quizDataJson, Object.class);
 
-        quiz.setQuestions((HashMap<String, String>) quizData);
+        quiz.setQuestions((HashMap<QuestionType, QuestionParameters>) quizData);
 
         return quiz;
     }
