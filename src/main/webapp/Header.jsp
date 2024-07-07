@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  Usera: giorgi
-  Date: 04.07.24
-  Time: 22:54
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="MVController.UserController" %>
+<%@ page import="Models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -36,7 +31,16 @@
                     }
                 }
             }
-            if(me != null){%>
+            UserController userController = (UserController) application.getAttribute("userController");
+
+
+
+            if(me != null){
+//                User myuser = userController.getUserInfo(Integer.parseInt(me));
+//                if(myuser != null) {
+//                    System.out.println("myuser" + myuser.toString());
+//                }
+        %>
             <a href="profile" class="roboto-regular login-button">Hi <%=me%> !</a>
             <%}else{%>
             <a href="login" class="roboto-regular login-button">Login</a>

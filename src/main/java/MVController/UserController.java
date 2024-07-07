@@ -8,10 +8,12 @@ import db.DBUserCommunicator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserController {
     private DBUserCommunicator uCommunicator;
     private FriendshipController fCommunicator;
+    private ArrayList<User> userList = new ArrayList<User>();
 
     /**
      * create user controller object
@@ -42,8 +44,10 @@ public class UserController {
         if(uCommunicator.checkPassword(username, encrypted)){
             int id = uCommunicator.getUserId(username);
             User newUser = new User(username, encrypted, id);
-
-            return fCommunicator.fillUserRelations(newUser) ? newUser : null;
+            if(fCommunicator.fillUserRelations(newUser)){
+                userList.add(newUser);
+                return newUser;
+            }
         }
         return null;
     }
@@ -65,7 +69,21 @@ public class UserController {
 
         if(uCommunicator.createUser(username, crypted, secretWord)){
             int id = uCommunicator.getUserId(username);
-            return new User(username, crypted, id);
+
+            User newUser =  new User(username, crypted, id);
+            if(fCommunicator.fillUserRelations(newUser)){
+                userList.add(newUser);
+                return newUser;
+            }
+        }
+        return null;
+    }
+
+    public User getUserInfo(int id){
+        for (User curUser : userList) {
+            if (curUser.getId()==id) {
+                return curUser;
+            }
         }
         return null;
     }
