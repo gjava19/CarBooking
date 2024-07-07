@@ -9,7 +9,7 @@ public class DBConnector {
 
     private Connection con;
     private static String user  = "root";
-    private static String pass  = "1234";
+    private static String pass  = "password";
     private static String url   = "jdbc:mysql://localhost:3306/quizwebdb";
 
     /**

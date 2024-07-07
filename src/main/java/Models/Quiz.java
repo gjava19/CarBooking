@@ -1,10 +1,10 @@
 package Models;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import Models.QuestionParameters;
 
-//TODO add creation time
 public class Quiz {
     private boolean randomQuestion;
     private boolean immediateAnswer;
@@ -15,22 +15,22 @@ public class Quiz {
 
     private String name;
     private String description;
+    private Date create_time;
 
     private HashMap<QuestionType, QuestionParameters> questions;
 
     public Quiz(){}
 
-    public Quiz(boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz,
-                int id, int userId,
-                String name, String description,
+    public Quiz(boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz, int userId,
+                String name, String description, Date create_time,
                 HashMap<QuestionType, QuestionParameters> questions) {
         this.randomQuestion = randomQuestion;
         this.immediateAnswer = immediateAnswer;
         this.multiplePageQuiz = multiplePageQuiz;
-        this.id = id;
         this.userId = userId;
         this.name = name;
         this.description = description;
+        this.create_time = create_time;
         this.questions = questions;
     }
 
@@ -61,6 +61,9 @@ public class Quiz {
 
     public String getDescription() {
         return description;
+    }
+    public Date getCreate_time() {
+        return create_time;
     }
 
     public HashMap<QuestionType, QuestionParameters> getQuestions() {
@@ -94,6 +97,9 @@ public class Quiz {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setCreate_time(Date create_time){
+        this.create_time = create_time;
+    }
 
     public void setQuestions(HashMap<QuestionType, QuestionParameters> questions) {
         this.questions = questions;
@@ -109,7 +115,8 @@ public class Quiz {
         result += "userId = " + userId + "\r\n";
         result += "name = " + name + "\r\n";
         result += "description = " + description + "\r\n";
-        if(questions != null)result += "questions = " + questions.toString() + "\r\n";
+        result += "create tile = " + create_time + "\r\n";
+        if(questions != null)result += "questions = " + questions + "\r\n";
 
         return result;
     }

@@ -9,4 +9,8 @@ public class Utils {
         }
         return res;
     }
+
+    public static boolean getRandomBool(){
+        return new Random().nextBoolean();
+    }
 }
