@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class DBConnector {
 
-    Connection con;
+    private Connection con;
     private static String user  = "root";
-    private static String pass  = "password";
+    private static String pass  = "1234";
     private static String url   = "jdbc:mysql://localhost:3306/quizwebdb";
 
     /**
@@ -20,8 +20,13 @@ public class DBConnector {
     }
 
     public DBConnector(String url) {
-        try{ con = DriverManager.getConnection(url, user, pass);}
-        catch(SQLException e){e.printStackTrace();}
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, pass);
+
+        } catch (ClassNotFoundException e) {e.printStackTrace();}
+        catch (SQLException e) {e.printStackTrace();}
     }
 
     public Connection getCon() {

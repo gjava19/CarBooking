@@ -79,7 +79,7 @@ public class DBFriendshipCommunicator {
      * @param id2   second user unique id.
      * @return      true if row deleted.
      */
-    private boolean makeStranger(int id1, int id2) throws SQLException {
+    public boolean makeStranger(int id1, int id2) throws SQLException {
         String sql = "DELETE FROM " + friendshipTable + " WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
 
         PreparedStatement ps = con.prepareStatement(sql);
