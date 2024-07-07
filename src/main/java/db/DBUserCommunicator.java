@@ -2,6 +2,8 @@ package db;
 
 import java.sql.*;
 
+import static db.DBFriendshipCommunicator.friendshipTable;
+
 public class DBUserCommunicator {
     /**
      * names of column indexes
@@ -56,11 +58,20 @@ public class DBUserCommunicator {
         if (!checkUserExists(username))
             return false;
 
+        // delete from user table
+        int id = getUserId(username);
         String sql = "delete from " + userTable + " where id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, getUserId(username));
+        ps.setInt(1, id);
 
         int rowsDeleted = ps.executeUpdate();
+
+        // delete from friendship table
+        String sql2 = "delete from " + friendshipTable + " where id1 = ? or id2 = ?";
+        PreparedStatement ps2 = con.prepareStatement(sql2);
+        ps2.setInt(1, id);
+        ps2.setInt(2, id);
+        ps2.executeUpdate();
 
         return rowsDeleted == 1;
     }
