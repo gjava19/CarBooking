@@ -38,7 +38,8 @@
     <div class="left-container">
         <div id="login-form" class="form">
             <h2>Login</h2>
-            <form>
+            <form action="api/login" method="post">
+                <input type="hidden" name = "formId" value = "login">
                 <input type="text" id="login-username" name="username" placeholder="Username" required>
                 <input type="password" id="login-password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
@@ -50,10 +51,11 @@
         </div>
         <div id="register-form" class="form" style="display: none;">
             <h2>Register</h2>
-            <form>
+            <form method="post">
+                <input type="hidden" name = "formId" value = "register">
                 <input type="text" id="register-username" name="username" placeholder="Username" required>
-                <input type="email" id="register-email" name="email" placeholder="Email" required>
                 <input type="password" id="register-password" name="password" placeholder="Password" required>
+                <input type="password" id="secret-word" name="secret-word" placeholder="Write your favourite desert as a secret word" required>
                 <button type="submit">Register</button>
             </form>
             <div class="toggle">
