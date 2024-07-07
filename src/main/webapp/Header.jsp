@@ -17,7 +17,7 @@
 </head>
 <body>
   <div class="header">
-    <img alt="QuizGradIcon" src="images/QuizGrandIcon.png" class="header-icon"/>
+    <a href="home"> <img alt="QuizGradIcon" src="images/QuizGrandIcon.png" class="header-icon"/> </a>
 
     <div class="header-right">
       <div class="header-menu">
@@ -25,7 +25,7 @@
         <div class="roboto-regular">Features</div>
         <div class="roboto-regular">About us</div>
       </div>
-      <button class="roboto-regular login-button">Login</button>
+      <a href="login" class="roboto-regular login-button">Login</a>
     </div>
 
   </div>

@@ -43,12 +43,15 @@ public class User implements FriendInt{
     public void setId(int id) {
         this.id = id;
     }
-    public void addFriend(FriendInt user)      { friends.add(user.getUsername());}
-    public void addSent(FriendInt user)        { sent.add(user.getUsername());}
-    public void addRequested(FriendInt user)   { requested.add(user.getUsername());}
-    public void removeFriend(FriendInt user)   { friends.remove(user.getUsername());}
-    public void removeSent(FriendInt user)     { sent.remove(user.getUsername());}
-    public void removeRequested(FriendInt user){ requested.remove(user.getUsername());}
+    public void addFriend(FriendInt user)           { friends.add(user.getUsername());}
+    public void addSent(FriendInt user)             { sent.add(user.getUsername());}
+    public void addRequested(FriendInt user)        { requested.add(user.getUsername());}
+    public void removeAllFriend(FriendInt user)     { friends.removeAll(friends);};
+    public void removeFriend(FriendInt user)        { friends.remove(user.getUsername());}
+    public void removeAllSent(FriendInt user)       { sent.removeAll(sent);};
+    public void removeSent(FriendInt user)          { sent.remove(user.getUsername());}
+    public void removeAllRequested(FriendInt user)  { requested.removeAll(requested);}
+    public void removeRequested(FriendInt user)     { requested.remove(user.getUsername());}
 
     @Override
     public String toString() {
