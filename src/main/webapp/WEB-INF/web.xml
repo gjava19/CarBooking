@@ -30,6 +30,16 @@
   </servlet>
 
   <servlet>
+    <servlet-name>ResetPasswordPage</servlet-name>
+    <jsp-file>/resetPassword.jsp</jsp-file>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ProfilePage</servlet-name>
+    <jsp-file>/profile.jsp</jsp-file>
+  </servlet>
+
+  <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>Servlets.UserServlet</servlet-class>
   </servlet>
@@ -48,6 +58,11 @@
   <servlet>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <servlet-class>Servlets.ForgetPasswordServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>Servlets.ProfileServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -71,6 +86,16 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>ResetPasswordPage</servlet-name>
+    <url-pattern>/reset-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ProfilePage</servlet-name>
+    <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/api/users</url-pattern>
   </servlet-mapping>
@@ -88,6 +113,16 @@
   <servlet-mapping>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <url-pattern>/api/forget-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ForgetPasswordServlet</servlet-name>
+    <url-pattern>/api/reset-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ProfileServlet</servlet-name>
+    <url-pattern>/api/profile</url-pattern>
   </servlet-mapping>
 
 </web-app>

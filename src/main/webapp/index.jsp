@@ -1,4 +1,4 @@
-<html>
+<html lang="en" class="home-page">
 <head>
     <title>Quiz Grad</title>
     <link rel="stylesheet" href="styles/index.css">
@@ -15,7 +15,7 @@
             <p>Your ultimate platform to create, share, and take quizzes.</p>
             <div class="intro-buttons">
                 <a href="" class="intro-button signup">Get Started</a>
-                <a href="login" class="intro-button login">Sign Up</a>
+                <a href="register" class="intro-button login">Sign Up</a>
             </div>
         </div>
         <div class="intro-image">

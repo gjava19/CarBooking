@@ -21,6 +21,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
+        System.out.println("Hellooo registeer");
 
         String formId = req.getParameter("formId");
         String username = req.getParameter("username");
