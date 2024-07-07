@@ -1,18 +1,15 @@
 package db;
 
-import Models.*;
+import Models.QuestionParameters;
+import Models.QuestionType;
+import Models.Quiz;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.interceptors.QueryInterceptor;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class DBQuizCommunicator {
     /**
@@ -22,29 +19,30 @@ public class DBQuizCommunicator {
     public static int COLUMNS_QUIZ_CREATOR_ID = 1;
     public static int COLUMNS_QUIZ_NAME = 2;
     public static int COLUMNS_QUIZ_DESCRIPTION = 3;
+    public static int COLUMNS_QUIZ_CREATE_TIME = 4;
 
-    public static int COLUMNS_QUIZ_MODE_RANDOM = 4;
-    public static int COLUMNS_QUIZ_MODE_PAGES = 5;
-    public static int COLUMNS_QUIZ_MODE_IMMEDIATE = 6;
+    public static int COLUMNS_QUIZ_MODE_RANDOM = 5;
+    public static int COLUMNS_QUIZ_MODE_PAGES = 6;
+    public static int COLUMNS_QUIZ_MODE_IMMEDIATE = 7;
 
-    public static int COLUMNS_QUIZ_IT_SELF = 7;
-    public static String[] columnUserNames = {"id", "creator_id", "name", "description",
+    public static int COLUMNS_QUIZ_IT_SELF = 8;
+    public static String[] columnUserNames = {"id", "creator_id", "name", "description", "create_time",
             "mode_random", "mode_pages", "mode_immediate",
             "quiz_data"};
 
     private static String quizTable = "quiz";
 
-    private String createTableSQL = "CREATE TABLE IF NOT EXISTS " + quizTable + " (" +
-            columnUserNames[COLUMNS_QUIZ_ID] + " INT AUTO_INCREMENT PRIMARY KEY, " +
-            columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + " INT NOT NULL , " +
-            columnUserNames[COLUMNS_QUIZ_NAME] + " VARCHAR(255) NOT NULL UNIQUE, " +
-            columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + " TEXT, " +
-            columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + " BOOLEAN, " +
-            columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + " BOOLEAN, " +
-            columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + " BOOLEAN, " +
-            columnUserNames[COLUMNS_QUIZ_IT_SELF] + " JSON )";
+//    private String createTableSQL = "CREATE TABLE IF NOT EXISTS " + quizTable + " (" +
+//            columnUserNames[COLUMNS_QUIZ_ID] + " INT AUTO_INCREMENT PRIMARY KEY, " +
+//            columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + " INT NOT NULL , " +
+//            columnUserNames[COLUMNS_QUIZ_NAME] + " VARCHAR(255) NOT NULL UNIQUE, " +
+//            columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + " TEXT, " +
+//            columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + " BOOLEAN, " +
+//            columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + " BOOLEAN, " +
+//            columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + " BOOLEAN, " +
+//            columnUserNames[COLUMNS_QUIZ_IT_SELF] + " JSON )";
 
-    private DBConnector con;
+    private Connection con;
     private DBUserCommunicator userCommunicator;
 
 
@@ -54,13 +52,9 @@ public class DBQuizCommunicator {
      * @param con connection pointer
      * @throws SQLException
      */
-    public DBQuizCommunicator(DBConnector con) throws SQLException {
+    public DBQuizCommunicator(Connection con) throws SQLException {
         this.con = con;
-        Statement stmt = con.getCon().createStatement();
-        stmt.execute(createTableSQL);
-        System.out.println("Table created successfully.");
-
-        this.userCommunicator = new DBUserCommunicator(con.getCon());
+        this.userCommunicator = new DBUserCommunicator(con);
 
     }
 
@@ -74,25 +68,25 @@ public class DBQuizCommunicator {
      */
     public boolean createQuiz(Quiz newQuiz) throws SQLException, JsonProcessingException {
         if (checkQuizExists(newQuiz.getName())) {
-            System.out.println("User already exists");
+            System.out.println("Quiz already exists");
             return false;
         }
 
-        String sql = "INSERT INTO " + quizTable +
-                " (" +  columnUserNames[COLUMNS_QUIZ_ID] + ", " +
+        String sql = "INSERT INTO " + quizTable + "(" +
                 columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + ", " +
                 columnUserNames[COLUMNS_QUIZ_NAME] + ", " +
                 columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + ", " +
+                columnUserNames[COLUMNS_QUIZ_CREATE_TIME] + ", " +
                 columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + ", " +
                 columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + ", " +
                 columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + ", " +
                 columnUserNames[COLUMNS_QUIZ_IT_SELF] + ") " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement ps = con.getCon().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ps.setInt(1, newQuiz.getId());
-        ps.setInt(2, newQuiz.getUserId());
-        ps.setString(3, newQuiz.getName());
-        ps.setString(4, newQuiz.getDescription());
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, newQuiz.getUserId());
+        ps.setString(2, newQuiz.getName());
+        ps.setString(3, newQuiz.getDescription());
+        ps.setDate(4, newQuiz.getCreate_time());
         ps.setBoolean(5, newQuiz.isRandomQuestion());
         ps.setBoolean(6, newQuiz.isMultiplePageQuiz());
         ps.setBoolean(7, newQuiz.isImmediateAnswer());
@@ -102,10 +96,10 @@ public class DBQuizCommunicator {
         ps.setString(8, quizDataJson);
 
         int affectedRows = ps.executeUpdate();
-        if (affectedRows == 0) throw new SQLException("Creating user failed, no rows affected.");
+        if (affectedRows == 0) throw new SQLException("Creating quiz failed, no rows affected.");
 
         ResultSet generatedKeys = ps.getGeneratedKeys();
-        if (!generatedKeys.next()) throw new SQLException("Creating user failed, no ID obtained.");
+        if (!generatedKeys.next()) throw new SQLException("Creating quiz failed, no ID obtained.");
 
         return true;
     }
@@ -119,10 +113,9 @@ public class DBQuizCommunicator {
      * @throws JsonProcessingException
      */
     public Quiz getQuizById(int quizId) throws SQLException, JsonProcessingException {
-        String sql = "SELECT id, creator_id, name, description, mode_random, mode_pages, mode_immediate, quiz_data " +
-                "FROM " +quizTable+" WHERE id = ?";
+        String sql = "SELECT * FROM " + quizTable +" WHERE id = ?";
 
-        PreparedStatement ps = con.getCon().prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setInt(1, quizId);
         ResultSet rs = ps.executeQuery();
@@ -138,10 +131,9 @@ public class DBQuizCommunicator {
      * @throws JsonProcessingException
      */
     public Quiz getQuizByName(String quizName) throws SQLException, JsonProcessingException {
-        String sql = "SELECT id, creator_id, name, description, mode_random, mode_pages, mode_immediate, quiz_data " +
-                "FROM "+quizTable+" WHERE name = ?";
+        String sql = "SELECT * FROM "+ quizTable + " WHERE name = ?";
 
-        PreparedStatement ps = con.getCon().prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setString(1, quizName);
         ResultSet rs = ps.executeQuery();
@@ -161,48 +153,20 @@ public class DBQuizCommunicator {
         quiz.setUserId(rs.getInt("creator_id"));
         quiz.setName(rs.getString("name"));
         quiz.setDescription(rs.getString("description"));
+        quiz.setCreate_time(rs.getDate("create_time"));
         quiz.setRandomQuestion(rs.getBoolean("mode_random"));
         quiz.setMultiplePageQuiz(rs.getBoolean("mode_pages"));
         quiz.setImmediateAnswer(rs.getBoolean("mode_immediate"));
 
         String quizDataJson = rs.getString("quiz_data");
-        if(deserializeQuizStructure(quizDataJson, quiz) == false) return null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object quizData =  objectMapper.readValue(quizDataJson, Object.class);
+
+        quiz.setQuestions((HashMap<QuestionType, QuestionParameters>) quizData);
 
         return quiz;
     }
 
-    private boolean deserializeQuizStructure(String quizDataJson, Quiz quiz){
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            Map<String, QuestionParameters> map = objectMapper.readValue(quizDataJson, new TypeReference<Map<String, QuestionParameters>>() {});
-            HashMap<QuestionType, QuestionParameters> questionMap = new HashMap<>();
-
-            for (Map.Entry<String, QuestionParameters> entry : map.entrySet()) {
-                String key = entry.getKey();
-                QuestionParameters value = entry.getValue();
-
-                if (key.startsWith(PictureResponse.getType())) {
-                    PictureResponse pictureResponse = objectMapper.readValue(key.substring(PictureResponse.getType().length()), PictureResponse.class);
-                    questionMap.put(pictureResponse, value);
-                } else if (key.startsWith(QuestionResponse.getType())) {
-                    QuestionResponse questionResponse = objectMapper.readValue(key.substring(QuestionResponse.getType().length()), QuestionResponse.class);
-                    questionMap.put(questionResponse, value);
-                } else if (key.startsWith(FillInTheBlank.getType())) {
-                    FillInTheBlank fillInTheBlank = objectMapper.readValue(key.substring(FillInTheBlank.getType().length()), FillInTheBlank.class);
-                    questionMap.put(fillInTheBlank, value);
-                } else if (key.startsWith(MultipleChoice.getType())) {
-                    MultipleChoice multipleChoice = objectMapper.readValue(key.substring(MultipleChoice.getType().length()), MultipleChoice.class);
-                    questionMap.put(multipleChoice, value);
-                }
-            }
-
-            quiz.setQuestions(questionMap);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     /**
      * search if quiz exist.
@@ -212,7 +176,7 @@ public class DBQuizCommunicator {
      */
     public boolean checkQuizExists(String quiz) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + quizTable + " WHERE name = ?";
-        PreparedStatement ps = con.getCon().prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, quiz);
 
         ResultSet rs = ps.executeQuery();

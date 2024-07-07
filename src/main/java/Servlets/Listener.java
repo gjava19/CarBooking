@@ -18,7 +18,7 @@ public class Listener implements ServletContextListener {
         UserController userController = new UserController(dbConnector);
         DBQuizCommunicator quizCommunicator;
         try {
-            quizCommunicator = new DBQuizCommunicator(dbConnector);}
+            quizCommunicator = new DBQuizCommunicator(dbConnector.getCon());}
         catch (SQLException e) {throw new RuntimeException(e);}
 
         servletContextEvent.getServletContext().setAttribute("userController", userController);
