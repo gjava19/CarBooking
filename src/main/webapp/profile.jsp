@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -15,6 +16,22 @@
 
 <div class="profile-container">
     <jsp:include page="Header.jsp"/>
+
+    <%=request.getAttribute("whoami")%>
+
+<%--    <c:out value="${whoami}"/>--%>
+
+    <c:choose>
+        <c:when test="${whoami != null}">
+            Hello, ${whoami}
+        </c:when>
+
+        <c:otherwise>
+            Ar imushava
+        </c:otherwise>
+
+    </c:choose>
+
     <main class="profile-main">
         <div class="profile-info">
             <img src="images/register.svg" alt="User Profile Picture" class="profile-picture">
