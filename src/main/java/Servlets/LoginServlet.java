@@ -21,13 +21,6 @@ public class LoginServlet extends HttpServlet {
     private UserController userController;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, resp);
-
-        System.out.println("Hellooo");
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
         System.out.println("Hellooo P");
