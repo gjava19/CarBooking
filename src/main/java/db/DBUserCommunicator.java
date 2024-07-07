@@ -13,7 +13,7 @@ public class DBUserCommunicator {
     public static String[] columnUserNames = {"id", "username", "password", "secret_word"};
 
     private static String userTable             = "user";
-    Connection con;
+    private Connection con;
 
     public DBUserCommunicator(Connection con) {
         this.con = con;
@@ -89,7 +89,7 @@ public class DBUserCommunicator {
      * search if user exist.
      *
      * @param username search name.
-     * @return error code, 0 if all good and user dont exist. userExisit if user exist.
+     * @return true if all good and user dont exist. userExisit if user exist.
      */
     public boolean checkUserExists(String username) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + userTable + " WHERE username = ?";
