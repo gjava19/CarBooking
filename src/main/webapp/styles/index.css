@@ -72,12 +72,6 @@
 }
 
 
-/* other styles*/
-div{
-    /* default text color */
-    color: #E0E0E0;
-}
-
 body {
     display: flex;
     flex-direction: column;
