@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 
-@WebServlet(name = "LoginServlet", value = "/login")
+@WebServlet(name = "ForgetPassServlet", value = "/forgetPass")
 
-public class LoginServlet extends HttpServlet {
+public class ForgetPasswordServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DBConnector dbConnector;
     private UserController userController;
@@ -23,21 +21,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
-        System.out.println("Hellooo P");
+        System.out.println("Forget Passs");
 
-        String formId = req.getParameter("formId");
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
 
-        if ("login".equals(formId)) {
-            // Handle login logic
-            System.out.println(formId + username + password);
-            try {
-                userController.loginUser(username, password);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
     }
 

@@ -17,7 +17,7 @@
 </head>
 <body>
   <div class="header">
-    <a href="index.jsp"> <img alt="QuizGradIcon" src="images/QuizGrandIcon.png" class="header-icon"/> </a>
+    <a href="home"> <img alt="QuizGradIcon" src="images/QuizGrandIcon.png" class="header-icon"/> </a>
 
     <div class="header-right">
       <div class="header-menu">
