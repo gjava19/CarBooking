@@ -5,6 +5,10 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <listener>
+    <listener-class>Servlets.Listener</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>HomePage</servlet-name>
     <jsp-file>/index.jsp</jsp-file>

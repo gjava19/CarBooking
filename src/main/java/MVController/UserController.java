@@ -58,6 +58,7 @@ public class UserController {
      */
     public User createUser(String username, String password, String secretWord) throws SQLException {
 
+
         String crypted = "";
         try{crypted = getCryptedString(password);}
         catch (NoSuchAlgorithmException e) {throw new RuntimeException(e);}

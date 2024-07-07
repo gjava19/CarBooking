@@ -15,7 +15,7 @@
         <div class="left-container">
             <div id="register-form" class="form">
                 <h2>Register</h2>
-                <form action="register" method="post">
+                <form action="api/register" method="post">
                     <input type="hidden" name = "formId" value = "register">
                     <input type="text" id="register-username" name="username" placeholder="Username" required>
                     <input type="password" id="register-password" name="password" placeholder="Password" required>
