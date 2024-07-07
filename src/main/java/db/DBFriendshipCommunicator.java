@@ -27,7 +27,7 @@ public class DBFriendshipCommunicator {
     public static int COLUMNS_FRIENDSHIP_STATUS   = 3;
     public static String[] columnFriendshipNames = {"id", "id1", "id2", "status"};
 
-    private static String friendshipTable       = "friendship";
+    static String friendshipTable       = "friendship";
     private Connection con;
     private DBUserCommunicator userCommunicator;
 
@@ -56,15 +56,17 @@ public class DBFriendshipCommunicator {
      */
     public FriendshipStatus getFriendshipstatus(int id1, int id2) throws SQLException {
         ResultSet result = findRowFriendship(id1, id2);
-        String status = result.getString(COLUMNS_FRIENDSHIP_STATUS + 1);
-        if( ! status.equals("")) {
+
+        String status= "";
+        if (result.next()) {
+            status = result.getString(COLUMNS_FRIENDSHIP_STATUS + 1);
             if (status.equals(friendshipStatusFriends)) return FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS;
             if (status.equals(friendshipStatusSent))    return FriendshipStatus.FRIENDSHIP_STATUS_REQUESTED;
         }
 
         result = findRowFriendship(id2, id1);
-        status = result.getString(COLUMNS_FRIENDSHIP_STATUS + 1);
-        if( ! status.equals("")) {
+        if(result.next()) {
+            status = result.getString(COLUMNS_FRIENDSHIP_STATUS + 1);
             if (status.equals(friendshipStatusFriends)) return FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS;
             if (status.equals(friendshipStatusSent))    return FriendshipStatus.FRIENDSHIP_STATUS_RECEIVED;
         }
