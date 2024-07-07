@@ -71,21 +71,28 @@ public class UserController {
     }
 
     /**
-     * try to change password user gives secretWord and if it is simillar return true and cahnge db
-     * @param username current username
-     * @param password current password
-     * @param secretWord current user secret word
-     * @return true if password changed eslse false
+     * checks if secret word is correct
+     * @param username
+     * @param secretWord
+     * @return
      * @throws SQLException
      */
-    public boolean changePasswordRequest(String username, String password, String secretWord) throws SQLException {
+    public boolean checkSecretWord(String username, String secretWord) throws SQLException {
         if( ! uCommunicator.checkUserExists(username)) return false;
-        if( ! uCommunicator.checkSecretWord(username, secretWord)) return false;
+        return uCommunicator.checkSecretWord(username, secretWord);
+    }
 
+    /**
+     * changes password
+     * @param username
+     * @param newPassword
+     * @return
+     * @throws SQLException
+     */
+    public boolean changePasswordRequest(String username, String newPassword) throws SQLException {
         String crypted = "";
-        try{crypted = getCryptedString(password);}
+        try {crypted = getCryptedString(newPassword);}
         catch (NoSuchAlgorithmException e) {throw new RuntimeException(e);}
-
         return uCommunicator.changePassword(username, crypted);
     }
 
