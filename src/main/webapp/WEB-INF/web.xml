@@ -30,6 +30,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>CreateQuizPage</servlet-name>
+    <jsp-file>/createQuiz.jsp</jsp-file>
+  </servlet>
+
+  <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>Servlets.UserServlet</servlet-class>
   </servlet>
@@ -48,6 +53,11 @@
   <servlet>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <servlet-class>Servlets.ForgetPasswordServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>QuizServlet</servlet-name>
+    <servlet-class>Servlets.QuizServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -71,6 +81,12 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>CreateQuizPage</servlet-name>
+    <url-pattern>/quiz/create</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/api/users</url-pattern>
   </servlet-mapping>
@@ -88,6 +104,11 @@
   <servlet-mapping>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <url-pattern>/api/forget-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>QuizServlet</servlet-name>
+    <url-pattern>/quiz/show</url-pattern>
   </servlet-mapping>
 
 </web-app>

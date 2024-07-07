@@ -1,7 +1,11 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PictureResponse implements QuestionType {
+    @JsonProperty("imagePath")
     private String imagePath;
+    @JsonProperty("response")
     private String response;
 
     public PictureResponse(){}
@@ -33,8 +37,12 @@ public class PictureResponse implements QuestionType {
     @Override
     public String toString() {
         return "PictureResponse{" +
-                "imagePath='" + imagePath + '\'' +
-                ", response='" + response + '\'' +
-                '}';
+                "\"imagePath\":\"" + imagePath + "\"" +
+                ",\"response\":\"" + response +
+                "\"}";
+    }
+
+    public static String getType() {
+        return "PictureResponse";
     }
 }

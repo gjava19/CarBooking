@@ -1,8 +1,12 @@
 package Models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class QuestionResponse implements QuestionType {
+    @JsonProperty("question")
     private String question;
+    @JsonProperty("response")
     private String response;
 
     public QuestionResponse(){}
@@ -33,9 +37,10 @@ public class QuestionResponse implements QuestionType {
 
     @Override
     public String toString() {
-        return "QuestionResponse{" +
-                "question='" + question + '\'' +
-                ", response='" + response + '\'' +
-                '}';
+        return "QuestionResponse{\"question\":\"" + question +
+                "\", \"response\":\"" + response +
+                "\"}";
     }
+
+    public static String getType() { return "QuestionResponse"; }
 }

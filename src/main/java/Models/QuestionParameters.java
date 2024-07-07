@@ -1,8 +1,13 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class QuestionParameters {
+    @JsonProperty("timeSec")
     private int timeSec;
+    @JsonProperty("score")
     private int score;
+    @JsonProperty("id")
     private int id;
 
     public QuestionParameters(){}
@@ -40,9 +45,9 @@ public class QuestionParameters {
     @Override
     public String toString() {
         return "QuestionParameters{" +
-                "timeSec=" + timeSec +
-                ", score=" + score +
-                ", id=" + id +
-                '}';
+                "\"timeSec\"=\"" + timeSec +
+                "\", \"score\"=\"" + score +
+                "\", \"id\"=\"" + id +
+                "\"}";
     }
 }

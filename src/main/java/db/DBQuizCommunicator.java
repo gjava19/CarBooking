@@ -1,9 +1,8 @@
 package db;
 
-import Models.QuestionParameters;
-import Models.QuestionType;
-import Models.Quiz;
+import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.interceptors.QueryInterceptor;
 
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class DBQuizCommunicator {
     /**
@@ -80,13 +80,13 @@ public class DBQuizCommunicator {
 
         String sql = "INSERT INTO " + quizTable +
                 " (" +  columnUserNames[COLUMNS_QUIZ_ID] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_NAME] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + ", " +
-                        columnUserNames[COLUMNS_QUIZ_IT_SELF] + ") " +
+                columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + ", " +
+                columnUserNames[COLUMNS_QUIZ_NAME] + ", " +
+                columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + ", " +
+                columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + ", " +
+                columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + ", " +
+                columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + ", " +
+                columnUserNames[COLUMNS_QUIZ_IT_SELF] + ") " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.getCon().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ps.setInt(1, newQuiz.getId());
@@ -166,21 +166,50 @@ public class DBQuizCommunicator {
         quiz.setImmediateAnswer(rs.getBoolean("mode_immediate"));
 
         String quizDataJson = rs.getString("quiz_data");
-        ObjectMapper objectMapper = new ObjectMapper();
-        Object quizData =  objectMapper.readValue(quizDataJson, Object.class);
-
-        quiz.setQuestions((HashMap<QuestionType, QuestionParameters>) quizData);
+        if(deserializeQuizStructure(quizDataJson, quiz) == false) return null;
 
         return quiz;
     }
 
+    private boolean deserializeQuizStructure(String quizDataJson, Quiz quiz){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Map<String, QuestionParameters> map = objectMapper.readValue(quizDataJson, new TypeReference<Map<String, QuestionParameters>>() {});
+            HashMap<QuestionType, QuestionParameters> questionMap = new HashMap<>();
 
-        /**
-         * search if quiz exist.
-         *
-         * @param quiz search quiz.
-         * @return true if all good and quiz don't exist.
-         */
+            for (Map.Entry<String, QuestionParameters> entry : map.entrySet()) {
+                String key = entry.getKey();
+                QuestionParameters value = entry.getValue();
+
+                if (key.startsWith(PictureResponse.getType())) {
+                    PictureResponse pictureResponse = objectMapper.readValue(key.substring(PictureResponse.getType().length()), PictureResponse.class);
+                    questionMap.put(pictureResponse, value);
+                } else if (key.startsWith(QuestionResponse.getType())) {
+                    QuestionResponse questionResponse = objectMapper.readValue(key.substring(QuestionResponse.getType().length()), QuestionResponse.class);
+                    questionMap.put(questionResponse, value);
+                } else if (key.startsWith(FillInTheBlank.getType())) {
+                    FillInTheBlank fillInTheBlank = objectMapper.readValue(key.substring(FillInTheBlank.getType().length()), FillInTheBlank.class);
+                    questionMap.put(fillInTheBlank, value);
+                } else if (key.startsWith(MultipleChoice.getType())) {
+                    MultipleChoice multipleChoice = objectMapper.readValue(key.substring(MultipleChoice.getType().length()), MultipleChoice.class);
+                    questionMap.put(multipleChoice, value);
+                }
+            }
+
+            quiz.setQuestions(questionMap);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * search if quiz exist.
+     *
+     * @param quiz search quiz.
+     * @return true if all good and quiz don't exist.
+     */
     public boolean checkQuizExists(String quiz) throws SQLException {
         String sql = "SELECT COUNT(*) FROM " + quizTable + " WHERE name = ?";
         PreparedStatement ps = con.getCon().prepareStatement(sql);

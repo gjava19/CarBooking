@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import Models.QuestionParameters;
 
+//TODO add creation time
 public class Quiz {
     private boolean randomQuestion;
     private boolean immediateAnswer;

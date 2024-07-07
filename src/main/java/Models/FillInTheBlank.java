@@ -1,7 +1,11 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FillInTheBlank implements QuestionType {
+    @JsonProperty("question")
     private String question;
+    @JsonProperty("response")
     private String response;
 
     public FillInTheBlank(){}
@@ -32,9 +36,10 @@ public class FillInTheBlank implements QuestionType {
 
     @Override
     public String toString() {
-        return "FillInTheBlank{" +
-                "question='" + question + '\'' +
-                ", response='" + response + '\'' +
-                '}';
+        return "FillInTheBlank{\"question\":\"" + question +
+                "\", \"response\":\"," + response +
+                "\"}";
     }
+
+    public static String getType() { return "FillInTheBlank"; }
 }

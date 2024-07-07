@@ -10,12 +10,15 @@ import db.DBFriendshipCommunicator;
 import Models.Quiz;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Usera {
-    public static void main(String[] args) throws SQLException, JsonProcessingException {
+    public static void main(String[] args) throws SQLException, IOException {
 
         DBConnector dbCon = new DBConnector();
 //        DBUserCommunicator user = new DBUserCommunicator(dbCon.getCon());
@@ -160,30 +163,98 @@ public class Usera {
 
         Quiz quiz = new Quiz();
 
-        quiz.setRandomQuestion(randomQuestion);
-        quiz.setImmediateAnswer(immediateAnswer);
-        quiz.setMultiplePageQuiz(multiplePageQuiz);
-        quiz.setId(id);
-        quiz.setUserId(userId);
-        quiz.setName(name);
-        quiz.setDescription(description);
+//        quiz.setRandomQuestion(randomQuestion);
+//        quiz.setImmediateAnswer(immediateAnswer);
+//        quiz.setMultiplePageQuiz(multiplePageQuiz);
+//        quiz.setId(id);
+//        quiz.setUserId(userId);
+//        quiz.setName(name);
+//        quiz.setDescription(description);
 //        quiz.setQuestions(questions);
 
         DBQuizCommunicator quizCommunicator = new DBQuizCommunicator(dbCon);
 
-        if(quizCommunicator.createQuiz(quiz))   System.out.println("quiz created");
-        else                                    System.out.println("quiz Already exist");
+//        if(quizCommunicator.createQuiz(quiz))   System.out.println("quiz created");
+//        else                                    System.out.println("quiz Already exist");
 
-        if(quizCommunicator.checkQuizExists(quiz.getName())){
+        if(quizCommunicator.checkQuizExists(name)){
             System.out.println("\r\n\n\nquiz exist");
 
-            Quiz newQuiz = quizCommunicator.getQuizByName(quiz.getName());
+            Quiz newQuiz = quizCommunicator.getQuizByName(name);
             System.out.println("get quiz :" + newQuiz.toString());
+
+            HashMap<QuestionType, QuestionParameters> map = newQuiz.getQuestions();
+            Set<QuestionType> set = map.keySet();
+
+            for(QuestionType q : set){
+                System.out.println(q.toString());
+                System.out.println(map.get(q).toString());
+            }
+
+
         }else{
             System.out.println("quiz dont exist");
         }
 
-        if(quiz != null)System.out.println("created quiz " + quiz.toString());
+//        if(quiz != null)System.out.println("created quiz " + quiz.toString());
 
     }
 }
+
+
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.core.type.TypeReference;
+//import Models.*;
+//
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//public class Usera {
+//    public static void main(String[] args) {
+//        String jsonString = """
+//                                {
+//                                "PictureResponse{\\"imagePath\\":\\"/path/to/image.jpg\\",\\"response\\":\\"Bald Eagle\\"}":\s
+//                                    {"id": 4, "score": 7, "timeSec": 123},\s
+//                                "QuestionResponse{\\"question\\":\\"Who was President during the Bay of Pigs fiasco?\\", \\"response\\":\\"John F. Kennedy\\"}":\s
+//                                    {"id": 1, "score": 7, "timeSec": 123},\s
+//                                "FillInTheBlank{\\"question\\":\\"One of President Lincoln’s most famous speeches was the __________ Address.\\", \\"response\\":\\"Gettysburg\\"}":\s
+//                                    {"id": 2, "score": 7, "timeSec": 123},\s
+//                                "MultipleChoice{\\"question\\":\\"What is the capital of France?\\", \\"choices\\":[\\"A. Paris\\", \\"B. Rome\\", \\"C. Madrid\\"], \\"correctAnswer\\":\\"A. Paris\\"}":\s
+//                    {"id": 3, "score": 7, "timeSec": 123}
+//                }
+//
+//        """;
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            Map<String, QuestionParameters> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, QuestionParameters>>() {});
+//            HashMap<QuestionType, QuestionParameters> questionMap = new HashMap<>();
+//
+//            for (Map.Entry<String, QuestionParameters> entry : map.entrySet()) {
+//                String key = entry.getKey();
+//                QuestionParameters value = entry.getValue();
+//
+//                if (key.startsWith("PictureResponse")) {
+//                    PictureResponse pictureResponse = objectMapper.readValue(key.substring(15), PictureResponse.class);
+//                    questionMap.put(pictureResponse, value);
+//                } else if (key.startsWith("QuestionResponse")) {
+//                    QuestionResponse questionResponse = objectMapper.readValue(key.substring(16), QuestionResponse.class);
+//                    questionMap.put(questionResponse, value);
+//                } else if (key.startsWith("FillInTheBlank")) {
+//                    FillInTheBlank fillInTheBlank = objectMapper.readValue(key.substring(14), FillInTheBlank.class);
+//                    questionMap.put(fillInTheBlank, value);
+//                } else if (key.startsWith("MultipleChoice")) {
+//                    MultipleChoice multipleChoice = objectMapper.readValue(key.substring(14), MultipleChoice.class);
+//                    questionMap.put(multipleChoice, value);
+//                }
+//            }
+//
+//            // Printing the map to verify
+//            for (Map.Entry<QuestionType, QuestionParameters> entry : questionMap.entrySet()) {
+//                System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
