@@ -20,13 +20,13 @@
   </servlet>
 
   <servlet>
-    <servlet-name>RegisterPage</servlet-name>
-    <jsp-file>/register.jsp</jsp-file>
+    <servlet-name>ForgetPasswordPage</servlet-name>
+    <jsp-file>/forgetPassword.jsp</jsp-file>
   </servlet>
 
   <servlet>
-    <servlet-name>ForgetPasswordPage</servlet-name>
-    <jsp-file>/forgetPassword.jsp</jsp-file>
+    <servlet-name>ResetPasswordPage</servlet-name>
+    <jsp-file>/resetPassword.jsp</jsp-file>
   </servlet>
 
   <servlet>
@@ -60,6 +60,11 @@
     <servlet-class>Servlets.QuizServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>Servlets.ProfileServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>HomePage</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -71,13 +76,13 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>RegisterPage</servlet-name>
-    <url-pattern>/register</url-pattern>
+    <servlet-name>ForgetPasswordPage</servlet-name>
+    <url-pattern>/forget-password</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>ForgetPasswordPage</servlet-name>
-    <url-pattern>/forget-password</url-pattern>
+    <servlet-name>ResetPasswordPage</servlet-name>
+    <url-pattern>/reset-password</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -98,12 +103,22 @@
 
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
-    <url-pattern>/api/register</url-pattern>
+    <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <url-pattern>/api/forget-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ForgetPasswordServlet</servlet-name>
+    <url-pattern>/api/reset-password</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ProfileServlet</servlet-name>
+    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

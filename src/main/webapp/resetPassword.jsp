@@ -13,13 +13,13 @@
 
     <div class="out-container">
         <div class="left-container">
-            <div id="forgot-password-form" class="form">
-                <h2>Forgot Password</h2>
-                <form action="api/forget-password" method="post">
-                    <input type="hidden" name="formId" value="verify">
-                    <input type="text" id="forgot-password-username" name="username" placeholder="Username" required>
-                    <input type="text" id="security-question" name="security-question" placeholder="What is your favourite dessert?" required>
-                    <button type="submit">Verify Answer</button>
+            <div id="reset-password-form" class="form" style="display: none;">
+                <h2>Reset Password</h2>
+                <form action="api/reset-password" method="post">
+                    <input type="hidden" name="formId" value="reset">
+                    <input type="text" id="reset-password-username" name="username" placeholder="Username" readonly required>
+                    <input type="password" id="new-password" name="password" placeholder="New Password" required>
+                    <button type="submit">Reset Password</button>
                 </form>
                 <div class="toggle">
                     <p>Remembered your password? <a href="login">Login here</a></p>
