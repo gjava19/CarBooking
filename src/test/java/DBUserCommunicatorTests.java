@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.*;
-import java.util.Random;
 
 public class DBUserCommunicatorTests {
 
@@ -30,9 +29,9 @@ public class DBUserCommunicatorTests {
 
     @Test
     public void testUser() throws SQLException {
-        String username = getRandomStr();
-        String password = getRandomStr();
-        String secret = getRandomStr();
+        String username = Utils.getRandomStr();
+        String password = Utils.getRandomStr();
+        String secret = Utils.getRandomStr();
 
         // user exists
         Assert.assertTrue(user.createUser(username, password, secret));
@@ -54,7 +53,7 @@ public class DBUserCommunicatorTests {
         Assert.assertFalse(user.checkSecretWord(username.substring(1), secret));
 
         // check updated password
-        String newPassword = getRandomStr();
+        String newPassword = Utils.getRandomStr();
         Assert.assertTrue(user.changePassword(username, newPassword));
         Assert.assertFalse(user.checkPassword(username, password));
         Assert.assertTrue(user.checkPassword(username, newPassword));
@@ -72,13 +71,5 @@ public class DBUserCommunicatorTests {
         PreparedStatement stmt = conn.getCon().prepareStatement(sql);
         stmt.setInt(1, userCountOld);
         stmt.executeUpdate();
-    }
-
-    private String getRandomStr(){
-        String res = "";
-        for (int i = 0; i < 15; i++){
-            res += (char)(new Random().nextInt(125 - 65) + 65);
-        }
-        return res;
     }
 }
