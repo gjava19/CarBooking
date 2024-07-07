@@ -15,7 +15,6 @@ public class DBFriendshipCommunicator {
         FRIENDSHIP_STATUS_REQUESTED,
         FRIENDSHIP_STATUS_RECEIVED,
         FRIENDSHIP_STATUS_FRIENDS,
-        FRIENDSHIP_STATUS_END,
     };
 
     public static String friendshipStatusFriends = "friends";
@@ -80,15 +79,15 @@ public class DBFriendshipCommunicator {
      * @param id2   second user unique id.
      * @return      true if row deleted.
      */
-    public boolean makeStranger(int id1, int id2) throws SQLException {
+    private boolean makeStranger(int id1, int id2) throws SQLException {
         String sql = "DELETE FROM " + friendshipTable + " WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
 
         PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setInt(1,    id1);
         ps.setInt(2,    id2);
-        ps.setInt(1,    id2);
-        ps.setInt(2,    id1);
+        ps.setInt(3,    id2);
+        ps.setInt(4,    id1);
         int rowsDeleted = ps.executeUpdate();
 
         return rowsDeleted > 0;
@@ -136,11 +135,19 @@ public class DBFriendshipCommunicator {
      * @return          true if status changed.
      */
     public boolean changeStatus(int id1, int id2, FriendshipStatus status) throws SQLException {
+        if (status.equals(FriendshipStatus.FRIENDSHIP_STATUS_REQUESTED) || status.equals(FriendshipStatus.FRIENDSHIP_STATUS_RECEIVED)){
+            System.out.println("not allowed");
+            return false;
+        }
+        if (status.equals(FriendshipStatus.FRIENDSHIP_STATUS_STRANGERS)){
+            return makeStranger(id1, id2);
+        }
+
         String sql = "UPDATE " + friendshipTable + " SET status = ? WHERE (id1 = ? AND id2 = ?) OR (id1 = ? AND id2 = ?);";
 
         PreparedStatement ps = con.prepareStatement(sql);
-        if(status == FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS) ps.setString(1, friendshipStatusFriends);
-        else                                                     ps.setString(1, friendshipStatusSent);
+        ps.setString(1, friendshipStatusFriends);
+
         ps.setInt(2, id1);
         ps.setInt(3, id2);
         ps.setInt(4, id2);
