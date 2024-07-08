@@ -1,11 +1,11 @@
 package Models;
 
-public class QuizAppareParameters {
+public class QuizAppearParameters {
     private String quizName;
     private String quizDescription;
     private String creatorName;
 
-    public QuizAppareParameters(String quizName, String quizDescription, String creatorName) {
+    public QuizAppearParameters(String quizName, String quizDescription, String creatorName) {
         this.quizName = quizName;
         this.quizDescription = quizDescription;
         this.creatorName = creatorName;
@@ -42,5 +42,16 @@ public class QuizAppareParameters {
                 ", quizDescription='" + quizDescription + '\'' +
                 ", creatorName='" + creatorName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof QuizAppearParameters){
+            QuizAppearParameters quizParams = (QuizAppearParameters) o;
+            return quizParams.getQuizName().equals(this.getQuizName()) &&
+                    quizParams.getCreatorName().equals(this.getCreatorName()) &&
+                    quizParams.getQuizDescription().equals(this.getQuizDescription());
+        }
+        return false;
     }
 }

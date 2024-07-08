@@ -1,7 +1,7 @@
 package Servlets;
 
 import MVController.UserController;
-import Models.QuizAppareParameters;
+import Models.QuizAppearParameters;
 import db.DBQuizCommunicator;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ public class QuizServlet extends HttpServlet {
         DBQuizCommunicator quizCommunicator = (DBQuizCommunicator) getServletContext().getAttribute("quizCommunicator");
         UserController userController = (UserController) getServletContext().getAttribute("userController");
 
-        ArrayList<QuizAppareParameters> quizes = null;
+        ArrayList<QuizAppearParameters> quizes = null;
         try {
             quizes = quizCommunicator.getAllQuiz();
         } catch (SQLException e) {
