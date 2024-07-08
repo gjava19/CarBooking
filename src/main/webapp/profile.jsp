@@ -4,41 +4,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>QuizGrand - Profile</title>
     <link rel="stylesheet" href="styles/profile.css">
 </head>
 <body>
 
 <div class="profile-container">
     <jsp:include page="Header.jsp"/>
-
-    <%
-        User userInfo = (User) request.getAttribute("userInfo");
-        HashSet<String> friendList = userInfo.getFriends();
-
-    %>
+    <c:set value="${userInfo.getFriends()}" var="friendList"/>
 
     <main class="profile-main">
         <div class="profile-info">
             <img src="images/register.svg" alt="User Profile Picture" class="profile-picture">
-            <h1 class="username"><%=userInfo.getUsername()%></h1>
+            <h1 class="username"><c:out value="${userInfo.getUsername()}"/></h1>
         </div>
         <div class="friends-list">
             <h2>Friends</h2>
-            <% if(friendList.isEmpty()){%>
-                <p>You have no friends</p>
-            <%}else{
-            %><ul class="friends"><%
-                for(String curFriend : friendList){
-                    %>
-            <li class="friend">
-                <img src="images/register.svg" alt="Friend 1" class="friend-picture">
-                <span class="friend-name"><%=curFriend%></span>
-            </li>
-            <%
-                }
-            }%>
-            </ul>
+
+            <c:choose>
+                <c:when test="${friendList.isEmpty()}">
+                    <p>You have no friends</p>
+                </c:when>
+                <c:otherwise>
+                    <ul class="friends">
+                        <c:forEach var="curFriend" items="${friendList}">
+                            <li class="friend">
+                                <img src="images/register.svg" alt="Friend 1" class="friend-picture">
+                                <span class="friend-name"><c:out value="${curFriend}"/></span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
             <a href="quiz"> Quizes </a>
 
         </div>
