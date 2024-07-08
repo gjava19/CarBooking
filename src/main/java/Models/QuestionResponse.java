@@ -42,5 +42,5 @@ public class QuestionResponse implements QuestionType {
                 "\"}";
     }
 
-    public static String getType() { return "QuestionResponse"; }
+    public String getType() { return "QuestionResponse"; }
 }

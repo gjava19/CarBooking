@@ -16,10 +16,13 @@ public class Listener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         DBConnector dbConnector  = new DBConnector();
         UserController userController = new UserController(dbConnector);
+
         DBQuizCommunicator quizCommunicator;
         try {
-            quizCommunicator = new DBQuizCommunicator(dbConnector.getCon());}
-        catch (SQLException e) {throw new RuntimeException(e);}
+            quizCommunicator = new DBQuizCommunicator(dbConnector.getCon());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         servletContextEvent.getServletContext().setAttribute("userController", userController);
         servletContextEvent.getServletContext().setAttribute("quizCommunicator", quizCommunicator);

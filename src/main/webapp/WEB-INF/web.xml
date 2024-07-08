@@ -15,11 +15,6 @@
   </servlet>
 
   <servlet>
-    <servlet-name>LoginPage</servlet-name>
-    <jsp-file>/login.jsp</jsp-file>
-  </servlet>
-
-  <servlet>
     <servlet-name>ForgetPasswordPage</servlet-name>
     <jsp-file>/forgetPassword.jsp</jsp-file>
   </servlet>
@@ -27,16 +22,6 @@
   <servlet>
     <servlet-name>ResetPasswordPage</servlet-name>
     <jsp-file>/resetPassword.jsp</jsp-file>
-  </servlet>
-
-  <servlet>
-    <servlet-name>CreateQuizPage</servlet-name>
-    <jsp-file>/createQuiz.jsp</jsp-file>
-  </servlet>
-
-  <servlet>
-    <servlet-name>UserServlet</servlet-name>
-    <servlet-class>Servlets.UserServlet</servlet-class>
   </servlet>
 
 
@@ -56,6 +41,16 @@
   </servlet>
 
   <servlet>
+    <servlet-name>ShowQuizServlet</servlet-name>
+    <servlet-class>Servlets.ShowQuizServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CreateQuizServlet</servlet-name>
+    <servlet-class>Servlets.CreateQuizServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>QuizServlet</servlet-name>
     <servlet-class>Servlets.QuizServlet</servlet-class>
   </servlet>
@@ -65,14 +60,11 @@
     <servlet-class>Servlets.ProfileServlet</servlet-class>
   </servlet>
 
+
+
   <servlet-mapping>
     <servlet-name>HomePage</servlet-name>
     <url-pattern>/home</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>LoginPage</servlet-name>
-    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -86,19 +78,8 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>CreateQuizPage</servlet-name>
-    <url-pattern>/quiz/create</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet-mapping>
-    <servlet-name>UserServlet</servlet-name>
-    <url-pattern>/api/users</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/api/login</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -122,8 +103,20 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>QuizServlet</servlet-name>
+    <servlet-name>ShowQuizServlet</servlet-name>
     <url-pattern>/quiz/show</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateQuizServlet</servlet-name>
+    <url-pattern>/quiz/create</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>QuizServlet</servlet-name>
+    <url-pattern>/quiz</url-pattern>
+  </servlet-mapping>
+
+
 
 </web-app>

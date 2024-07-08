@@ -79,9 +79,10 @@ public class UserController {
         return null;
     }
 
-    public User getUserInfo(int id){
+    public User getUserInfo(String username)  {
+
         for (User curUser : userList) {
-            if (curUser.getId()==id) {
+            if (curUser.getUsername().equals(username)) {
                 return curUser;
             }
         }

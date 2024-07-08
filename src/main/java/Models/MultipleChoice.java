@@ -62,5 +62,5 @@ public class MultipleChoice implements QuestionType {
         return result;
     }
 
-    public static String getType() { return "MultipleChoice"; }
+    public String getType() { return "MultipleChoice"; }
 }

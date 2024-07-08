@@ -30,7 +30,7 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             User user = userController.createUser(username, password, secretWord);
-            response.addCookie(new Cookie(WHOAMI, user.getUsername()));
+//            response.addCookie(new Cookie(WHOAMI, user.getUsername()));
             response.sendRedirect( "profile");
         } catch (SQLException e) {
             throw new RuntimeException(e);

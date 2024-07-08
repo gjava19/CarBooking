@@ -41,5 +41,5 @@ public class FillInTheBlank implements QuestionType {
                 "\"}";
     }
 
-    public static String getType() { return "FillInTheBlank"; }
+    public String getType() { return "FillInTheBlank"; }
 }

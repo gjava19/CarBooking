@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Usera {
     public static void main(String[] args) throws SQLException, JsonProcessingException {
@@ -33,8 +34,8 @@ public class Usera {
 //
 //        if(user.checkUserExists("rame 1"))System.out.println("User rame 1 exists");
 //        if(user.checkUserExists("rame 2"))System.out.println("User rame 2 exists");
-//        int user1id = user.getUserId(user1);
-//        int user2id = user.getUserId(user2);
+//        int user1id = user.getCreatorId(user1);
+//        int user2id = user.getCreatorId(user2);
 //
 //        System.out.println("user1 id = " + user1id);
 //        System.out.println("user2 id = " + user2id);
@@ -153,8 +154,8 @@ public class Usera {
         boolean immediateAnswer = true;
         boolean multiplePageQuiz = false;
 
-        int id = 199;
-        int userId = 100;
+        int id = 2;
+        int userId = 1;
 
         String name = "slay quiz";
         String description = "slay quiz is cool";
@@ -181,6 +182,16 @@ public class Usera {
 
             Quiz newQuiz = quizCommunicator.getQuizByName(quiz.getName());
             System.out.println("get quiz :" + newQuiz.toString());
+
+            HashMap<QuestionType, QuestionParameters> map = newQuiz.getQuestions();
+            Set<QuestionType> set = map.keySet();
+
+            for(QuestionType q : set){
+                System.out.println(q.toString());
+                System.out.println(map.get(q).toString());
+            }
+
+
         }else{
             System.out.println("quiz dont exist");
         }
@@ -189,3 +200,61 @@ public class Usera {
 
     }
 }
+
+
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.core.type.TypeReference;
+//import Models.*;
+//
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//public class Usera {
+//    public static void main(String[] args) {
+//        String jsonString = """
+//                                {
+//                                "PictureResponse{\\"imagePath\\":\\"/path/to/image.jpg\\",\\"response\\":\\"Bald Eagle\\"}":\s
+//                                    {"id": 4, "score": 7, "timeSec": 123},\s
+//                                "QuestionResponse{\\"question\\":\\"Who was President during the Bay of Pigs fiasco?\\", \\"response\\":\\"John F. Kennedy\\"}":\s
+//                                    {"id": 1, "score": 7, "timeSec": 123},\s
+//                                "FillInTheBlank{\\"question\\":\\"One of President Lincoln’s most famous speeches was the __________ Address.\\", \\"response\\":\\"Gettysburg\\"}":\s
+//                                    {"id": 2, "score": 7, "timeSec": 123},\s
+//                                "MultipleChoice{\\"question\\":\\"What is the capital of France?\\", \\"choices\\":[\\"A. Paris\\", \\"B. Rome\\", \\"C. Madrid\\"], \\"correctAnswer\\":\\"A. Paris\\"}":\s
+//                    {"id": 3, "score": 7, "timeSec": 123}
+//                }
+//
+//        """;
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            Map<String, QuestionParameters> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, QuestionParameters>>() {});
+//            HashMap<QuestionType, QuestionParameters> questionMap = new HashMap<>();
+//
+//            for (Map.Entry<String, QuestionParameters> entry : map.entrySet()) {
+//                String key = entry.getKey();
+//                QuestionParameters value = entry.getValue();
+//
+//                if (key.startsWith("PictureResponse")) {
+//                    PictureResponse pictureResponse = objectMapper.readValue(key.substring(15), PictureResponse.class);
+//                    questionMap.put(pictureResponse, value);
+//                } else if (key.startsWith("QuestionResponse")) {
+//                    QuestionResponse questionResponse = objectMapper.readValue(key.substring(16), QuestionResponse.class);
+//                    questionMap.put(questionResponse, value);
+//                } else if (key.startsWith("FillInTheBlank")) {
+//                    FillInTheBlank fillInTheBlank = objectMapper.readValue(key.substring(14), FillInTheBlank.class);
+//                    questionMap.put(fillInTheBlank, value);
+//                } else if (key.startsWith("MultipleChoice")) {
+//                    MultipleChoice multipleChoice = objectMapper.readValue(key.substring(14), MultipleChoice.class);
+//                    questionMap.put(multipleChoice, value);
+//                }
+//            }
+//
+//            // Printing the map to verify
+//            for (Map.Entry<QuestionType, QuestionParameters> entry : questionMap.entrySet()) {
+//                System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
