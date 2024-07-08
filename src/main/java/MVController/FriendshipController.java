@@ -134,15 +134,15 @@ public class FriendshipController {
     /**
      * send friendship
      *
-     * @param user1 user which sends
-     * @param user2 user which receives
+     * @param user1Id user which sends
+     * @param user2Id user which receives
      * @return true if sent
      * @throws SQLException
      */
-    public boolean sendFriendship(User user1, FriendInt user2) throws SQLException {
-        boolean status = fCommunicator.createRequest(user1.getId(), user2.getId());
+    public boolean sendFriendship( int user1Id, int user2Id) throws SQLException {
+        boolean status = fCommunicator.createRequest(user1Id, user2Id);
         if(! status) return false;
-        user1.addSent(user2);
+//        user1.addSent(user2);
 //        user2.addSent(user2);
 
         return true;

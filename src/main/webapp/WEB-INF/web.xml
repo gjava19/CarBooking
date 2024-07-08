@@ -70,7 +70,15 @@
     <servlet-class>Servlets.ProfileServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>SearchUserServlet</servlet-name>
+    <servlet-class>Servlets.SearchUserServlet</servlet-class>
+  </servlet>
 
+  <servlet>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <servlet-class>Servlets.AddFriendServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>HomePage</servlet-name>
@@ -101,6 +109,17 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SearchUserServlet</servlet-name>
+    <url-pattern>/search-user</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AddFriendServlet</servlet-name>
+    <url-pattern>/add-friend</url-pattern>
+  </servlet-mapping>
+
 
   <servlet-mapping>
     <servlet-name>ForgetPasswordServlet</servlet-name>

@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="styles/profile.css">
 </head>
 <body>
-
-
     <jsp:include page="Header.jsp"/>
     <main class="profile-container">
         <div class="profile-main">
@@ -61,7 +59,6 @@
                 <c:set value="${userInfo.getSent()}" var="sentFriendRequestList"/>
                 <div class="friends-list">
                     <h2>Sent Friend Request</h2>
-
                     <c:choose>
                         <c:when test="${sentFriendRequestList.isEmpty()}">
                             <p>You have no sent friend requests</p>
@@ -79,6 +76,28 @@
                     </c:choose>
                 </div>
             </div>
+            <div>
+                <h1>Search other users</h1>
+                <form action="search-user" method="get">
+                    <input type="text" name="query" placeholder="Type your search query" required />
+                    <button type="submit">Search</button>
+                </form>
+                <div>
+                    <c:if test="${not empty results}">
+                        <div>
+                            <c:forEach var="curUser" items="${results}">
+                                <form action="add-friend" method="post">
+<%--                                    <input type="hidden" name="myid" value="${curUser.getId()}">--%>
+                                    <input type="hidden" name="myid" value="3">
+                                    <input type="hidden" name="userid" value="${curUser.getId()}">
+                                    <div><c:out value="${curUser.getUsername()}"/></div>
+                                    <button type="submit">Add as friend</button>
+                                </form>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
+            </div>
             <div class="button-container">
                 <a class="button" href="quiz"> Quizes </a>
             </div>
@@ -87,7 +106,5 @@
     <footer class="footer">
         <p>&copy; 2024 QuizGrad. All rights reserved.</p>
     </footer>
-</div>
-
 </body>
 </html>

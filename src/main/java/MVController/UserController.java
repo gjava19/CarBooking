@@ -1,16 +1,11 @@
 package MVController;
 
 import Models.Friend;
-import Models.QuizAppareParameters;
 import Models.User;
 import db.DBConnector;
-import db.DBFriendshipCommunicator;
 import db.DBUserCommunicator;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -144,4 +139,13 @@ public class UserController {
         return result.toString();
     }
 
+    public ArrayList<Friend> getFilterUser(String filterWord){
+        ArrayList<Friend> result = new ArrayList<>();
+        try {
+            result = uCommunicator.getFilterUser(filterWord);
+        } catch (SQLException e) {
+            return result;
+        }
+        return result;
+    }
 }

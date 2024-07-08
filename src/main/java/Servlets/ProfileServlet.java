@@ -29,7 +29,6 @@ public class ProfileServlet extends HttpServlet {
             User myuser = userController.getUserInfo(infoCookie.getValue());
 
             if(myuser != null) {
-
                 request.setAttribute("userInfo", myuser);
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             }else {
