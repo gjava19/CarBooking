@@ -1,5 +1,7 @@
 package Servlets;
 
+import MVController.UserController;
+import Models.User;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,26 +15,35 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-        String me = null;
+        Cookie infoCookie = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(WHOAMI)) {
-                    me = cookie.getValue();
+                    infoCookie = cookie;
                 }
             }
         }
+       ;
+        if (infoCookie != null && infoCookie.getValue() != null){
+            UserController userController = (UserController) getServletContext().getAttribute("userController");
+            User myuser = userController.getUserInfo(infoCookie.getValue());
 
-        System.out.println("me === "+me);
-        if (me != null){
-            request.setAttribute(WHOAMI, me);
+            if(myuser != null) {
+
+                request.setAttribute("userInfo", myuser);
+                request.getRequestDispatcher("profile.jsp").forward(request, response);
+            }else {
+                // Delete infoCookie when user not found with this cookie value
+                infoCookie.setMaxAge(0);
+                response.addCookie(infoCookie);
+            }
         }
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        response.sendRedirect( "login.jsp" );
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
-        System.out.println("Profileee");
 
     }
 }
