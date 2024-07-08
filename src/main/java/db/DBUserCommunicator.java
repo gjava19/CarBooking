@@ -1,6 +1,10 @@
 package db;
 
+import Models.Friend;
+import Models.QuizAppareParameters;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 import static db.DBFriendshipCommunicator.friendshipTable;
 
@@ -175,5 +179,4 @@ public class DBUserCommunicator {
 
         return -1;
     }
-
 }

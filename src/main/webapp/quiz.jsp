@@ -73,7 +73,8 @@
         }
     }
 </script>
-<p>
+
+    <p>
         <a href="quiz/show?name=slay quiz"> Show quiz </a>
     </p>
 
