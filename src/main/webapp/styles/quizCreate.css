@@ -1,4 +1,4 @@
-body {
+main {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     margin: 0;
@@ -14,6 +14,7 @@ body {
     width: 80%;
     max-width: 600px;
     padding: 20px;
+    margin: 20px;
 }
 h2 {
     text-align: center;
@@ -36,6 +37,7 @@ input, textarea, select {
 }
 button {
     padding: 10px;
+    margin: 5px;
     background-color: #333;
     color: #fff;
     border: none;

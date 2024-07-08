@@ -31,7 +31,6 @@ body {
 }
 
 .menu-item {
-    color: #333;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -42,6 +41,7 @@ body {
 
 .login-button {
     padding: 10px 20px;
+    margin: 10px;
     color: #fff;
     background-color: #f5a623;
     border: none;

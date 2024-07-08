@@ -7,42 +7,45 @@
     <link rel = "stylesheet" href = ../styles/quizCreate.css>
 </head>
 <body>
-<div class="container">
-    <h2>Create Quiz</h2>
-    <form id="quizForm">
-        <label for="name">Quiz Name:</label>
-        <input type="text" id="name" name="name" required>
+<jsp:include page="../Header.jsp"/>
+<main>
+    <div class="container">
+        <h2>Create Quiz</h2>
+        <form id="quizForm">
+            <label for="name">Quiz Name:</label>
+            <input type="text" id="name" name="name" required>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4"></textarea>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
 
-        <label for="modeRandom">Mode Random:</label>
-        <select id="modeRandom" name="modeRandom">
-            <option value="true">True</option>
-            <option value="false">False</option>
-        </select>
+            <label for="modeRandom">Mode Random:</label>
+            <select id="modeRandom" name="modeRandom">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
 
-        <label for="modePages">Mode Pages:</label>
-        <select id="modePages" name="modePages">
-            <option value="true">True</option>
-            <option value="false">False</option>
-        </select>
+            <label for="modePages">Mode Pages:</label>
+            <select id="modePages" name="modePages">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
 
-        <label for="modeImmediate">Mode Immediate:</label>
-        <select id="modeImmediate" name="modeImmediate">
-            <option value="true">True</option>
-            <option value="false">False</option>
-        </select>
+            <label for="modeImmediate">Mode Immediate:</label>
+            <select id="modeImmediate" name="modeImmediate">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
 
-        <h3>Questions</h3>
-        <div id="questions">
+            <h3>Questions</h3>
+            <div id="questions">
 
-        </div>
-        <button type="button" id="addQuestion">Add Question</button>
+            </div>
+            <button type="button" id="addQuestion">Add Question</button>
 
-        <button type="submit">Create Quiz</button>
-    </form>
-</div>
+            <button type="submit">Create Quiz</button>
+        </form>
+    </div>
+</main>
 
 <script>
     const questionsContainer = document.getElementById('questions');

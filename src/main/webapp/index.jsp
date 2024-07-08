@@ -16,7 +16,7 @@
             <h1>Welcome to QuizGrad</h1>
             <p>Your ultimate platform to create, share, and take quizzes.</p>
             <div class="intro-buttons">
-                <a href="" class="intro-button signup">Get Started</a>
+                <a href="profile" class="intro-button signup">Get Started</a>
                 <a href="register" class="intro-button login">Sign Up</a>
             </div>
         </div>

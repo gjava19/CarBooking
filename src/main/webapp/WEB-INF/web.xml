@@ -36,6 +36,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>Servlets.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>Servlets.RegisterServlet</servlet-class>
   </servlet>
@@ -85,6 +90,11 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

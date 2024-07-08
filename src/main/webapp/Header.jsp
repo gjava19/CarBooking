@@ -15,7 +15,7 @@
 </head>
 <body>
   <div class="header">
-    <a href="home"> <img alt="QuizGradIcon" src="${pageContext.request.contextPath}/images/QuizGrandIcon.png" class="header-icon"/> </a>
+    <img alt="QuizGradIcon" src="${pageContext.request.contextPath}/images/QuizGrandIcon.png" class="header-icon"/>
 
     <div class="header-right">
       <div class="header-menu">
@@ -25,10 +25,11 @@
       </div>
         <c:choose>
             <c:when test="${cookie.whoami.value != null}">
-                <a href="profile" class="roboto-regular login-button">Hi <c:out value="${cookie.whoami.value}"/> !</a>
+                <a href="${pageContext.request.contextPath}/profile" class="roboto-regular login-button">Hi <c:out value="${cookie.whoami.value}"/> !</a>
+                <a href="${pageContext.request.contextPath}/logout" class="roboto-regular login-button">Logout</a>
             </c:when>
             <c:otherwise>
-                <a href="login" class="roboto-regular login-button">Login</a>
+                <a href="${pageContext.request.contextPath}/login" class="roboto-regular login-button">Login</a>
             </c:otherwise>
         </c:choose>
     </div>

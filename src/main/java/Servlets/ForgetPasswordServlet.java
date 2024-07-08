@@ -46,14 +46,14 @@ public class ForgetPasswordServlet extends HttpServlet {
             try {
                 if (userController.checkSecretWord(username, secretWord)) {
                     System.out.println("checked secret word");
-                    req.getRequestDispatcher("resetPassword.jsp").forward(req, resp);
+                    resp.sendRedirect( "resetPassword");
 
                     String password = req.getParameter("password");
                     System.out.println("entered new password");
                     try {
                         userController.changePasswordRequest(username, password);
                         System.out.println(formId + username + password);
-                        resp.sendRedirect("login.jsp");
+                        resp.sendRedirect("login");
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
