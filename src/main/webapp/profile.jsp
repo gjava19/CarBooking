@@ -39,6 +39,8 @@
                 }
             }%>
             </ul>
+            <a href="quiz"> Quizes </a>
+
         </div>
     </main>
     <footer class="footer">

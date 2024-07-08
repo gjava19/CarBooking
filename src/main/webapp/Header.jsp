@@ -25,10 +25,10 @@
             String me = null;
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("whoami")) {
-                        me = cookie.getValue();
-
-                    }
+//                    if (cookie.getName().equals("whoami")) {
+//                        me = cookie.getValue();
+//
+//                    }
                 }
             }
             UserController userController = (UserController) application.getAttribute("userController");

@@ -42,7 +42,7 @@ public class PictureResponse implements QuestionType {
                 "\"}";
     }
 
-    public static String getType() {
+    public String getType() {
         return "PictureResponse";
     }
 }

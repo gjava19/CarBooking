@@ -32,4 +32,6 @@ public interface QuestionType {
      */
     void setResponse(String response);
 
+    String getType();
+
 }

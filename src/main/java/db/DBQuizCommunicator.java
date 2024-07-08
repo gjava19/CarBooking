@@ -2,14 +2,21 @@ package db;
 
 import Models.QuestionParameters;
 import Models.QuestionType;
+import Models.*;
 import Models.Quiz;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.interceptors.QueryInterceptor;
+import java.sql.Connection;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
+
 
 public class DBQuizCommunicator {
     /**
@@ -32,15 +39,16 @@ public class DBQuizCommunicator {
 
     private static String quizTable = "quiz";
 
-//    private String createTableSQL = "CREATE TABLE IF NOT EXISTS " + quizTable + " (" +
-//            columnUserNames[COLUMNS_QUIZ_ID] + " INT AUTO_INCREMENT PRIMARY KEY, " +
-//            columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + " INT NOT NULL , " +
-//            columnUserNames[COLUMNS_QUIZ_NAME] + " VARCHAR(255) NOT NULL UNIQUE, " +
-//            columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + " TEXT, " +
-//            columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + " BOOLEAN, " +
-//            columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + " BOOLEAN, " +
-//            columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + " BOOLEAN, " +
-//            columnUserNames[COLUMNS_QUIZ_IT_SELF] + " JSON )";
+    private String createTableSQL = "CREATE TABLE IF NOT EXISTS " + quizTable + " (" +
+            columnUserNames[COLUMNS_QUIZ_ID] + " INT AUTO_INCREMENT PRIMARY KEY, " +
+            columnUserNames[COLUMNS_QUIZ_CREATOR_ID] + " INT NOT NULL , " +
+            columnUserNames[COLUMNS_QUIZ_NAME] + " VARCHAR(255) NOT NULL UNIQUE, " +
+            columnUserNames[COLUMNS_QUIZ_DESCRIPTION] + " TEXT, " +
+            columnUserNames[COLUMNS_QUIZ_CREATE_TIME] + " LONG, " +
+            columnUserNames[COLUMNS_QUIZ_MODE_RANDOM] + " BOOLEAN, " +
+            columnUserNames[COLUMNS_QUIZ_MODE_PAGES] + " BOOLEAN, " +
+            columnUserNames[COLUMNS_QUIZ_MODE_IMMEDIATE] + " BOOLEAN, " +
+            columnUserNames[COLUMNS_QUIZ_IT_SELF] + " JSON )";
 
     private Connection con;
     private DBUserCommunicator userCommunicator;
@@ -54,6 +62,10 @@ public class DBQuizCommunicator {
      */
     public DBQuizCommunicator(Connection con) throws SQLException {
         this.con = con;
+        Statement stmt = con.createStatement();
+        stmt.execute(createTableSQL);
+        System.out.println("Table created successfully.");
+
         this.userCommunicator = new DBUserCommunicator(con);
 
     }
@@ -151,6 +163,7 @@ public class DBQuizCommunicator {
         Quiz quiz = new Quiz();
         quiz.setId(rs.getInt("id"));
         quiz.setUserId(rs.getInt("creator_id"));
+        quiz.setUserName(userCommunicator.getUsername(quiz.getId()));
         quiz.setName(rs.getString("name"));
         quiz.setDescription(rs.getString("description"));
         quiz.setCreate_time(rs.getDate("create_time"));
@@ -159,14 +172,58 @@ public class DBQuizCommunicator {
         quiz.setImmediateAnswer(rs.getBoolean("mode_immediate"));
 
         String quizDataJson = rs.getString("quiz_data");
-        ObjectMapper objectMapper = new ObjectMapper();
-        Object quizData =  objectMapper.readValue(quizDataJson, Object.class);
-
-        quiz.setQuestions((HashMap<QuestionType, QuestionParameters>) quizData);
+        if(deserializeQuizStructure(quizDataJson, quiz) == false) return null;
 
         return quiz;
     }
 
+    private boolean deserializeQuizStructure(String quizDataJson, Quiz quiz){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Map<String, QuestionParameters> map = objectMapper.readValue(quizDataJson, new TypeReference<Map<String, QuestionParameters>>() {});
+            HashMap<QuestionType, QuestionParameters> questionMap = new HashMap<>();
+
+            for (Map.Entry<String, QuestionParameters> entry : map.entrySet()) {
+                String key = entry.getKey();
+                QuestionParameters value = entry.getValue();
+
+                if (key.startsWith("PictureResponse")) {
+                    PictureResponse pictureResponse = objectMapper.readValue(key.substring("PictureResponse".length()), PictureResponse.class);
+                    questionMap.put(pictureResponse, value);
+                } else if (key.startsWith("QuestionResponse")) {
+                    QuestionResponse questionResponse = objectMapper.readValue(key.substring("QuestionResponse".length()), QuestionResponse.class);
+                    questionMap.put(questionResponse, value);
+                } else if (key.startsWith("FillInTheBlank")) {
+                    FillInTheBlank fillInTheBlank = objectMapper.readValue(key.substring("FillInTheBlank".length()), FillInTheBlank.class);
+                    questionMap.put(fillInTheBlank, value);
+                } else if (key.startsWith("MultipleChoice")) {
+                    MultipleChoice multipleChoice = objectMapper.readValue(key.substring("MultipleChoice".length()), MultipleChoice.class);
+                    questionMap.put(multipleChoice, value);
+                }
+            }
+
+            quiz.setQuestions(questionMap);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<QuizAppareParameters> getAllQuiz() throws SQLException {
+        ArrayList<QuizAppareParameters> result = new ArrayList<>();
+        String sql = "SELECT creator_id, name, description FROM " + quizTable;
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            int creatorId = rs.getInt("creator_id");
+            String name = rs.getString("name");
+            String descString = rs.getString("description");
+            String creatorName = userCommunicator.getUsername(creatorId);
+            result.add(new QuizAppareParameters(name, descString, creatorName));
+        }
+        return result;
+    }
 
     /**
      * search if quiz exist.
