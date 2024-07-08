@@ -1,6 +1,7 @@
 <%@ page import="MVController.UserController" %>
 <%@ page import="Models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -20,20 +21,14 @@
         <div class="roboto-regular menu-item">Features</div>
         <div class="roboto-regular menu-item">About us</div>
       </div>
-        <%
-            Cookie[] cookies = request.getCookies();
-            String me = null;
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("whoami")) me = cookie.getValue();
-                }
-            }
-            if(me != null){
-            %><a href="profile" class="roboto-regular login-button">Hi <%=me%> !</a>
-            <%}else{%>
-            <a href="login" class="roboto-regular login-button">Login</a>
-            <%}%>
-
+        <c:choose>
+            <c:when test="${cookie.whoami.value != null}">
+                <a href="profile" class="roboto-regular login-button">Hi <c:out value="${cookie.whoami.value}"/> !</a>
+            </c:when>
+            <c:otherwise>
+                <a href="login" class="roboto-regular login-button">Login</a>
+            </c:otherwise>
+        </c:choose>
     </div>
 
   </div>
