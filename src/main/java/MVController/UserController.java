@@ -82,6 +82,11 @@ public class UserController {
 
         for (User curUser : userList) {
             if (curUser.getUsername().equals(username)) {
+                try {
+                    fCommunicator.fillUserRelations(curUser);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 return curUser;
             }
         }

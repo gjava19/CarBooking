@@ -23,7 +23,7 @@ public class ProfileServlet extends HttpServlet {
                 }
             }
         }
-       ;
+
         if (infoCookie != null && infoCookie.getValue() != null){
             UserController userController = (UserController) getServletContext().getAttribute("userController");
             User myuser = userController.getUserInfo(infoCookie.getValue());

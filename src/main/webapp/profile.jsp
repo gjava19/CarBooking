@@ -87,8 +87,7 @@
                         <div>
                             <c:forEach var="curUser" items="${results}">
                                 <form action="add-friend" method="post">
-<%--                                    <input type="hidden" name="myid" value="${curUser.getId()}">--%>
-                                    <input type="hidden" name="myid" value="3">
+                                    <input type="hidden" name="myid" value="${userInfo.getId()}">
                                     <input type="hidden" name="userid" value="${curUser.getId()}">
                                     <div><c:out value="${curUser.getUsername()}"/></div>
                                     <button type="submit">Add as friend</button>

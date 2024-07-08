@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.ArrayList;
-
 public class Friend implements FriendInt{
 
     private String username;
