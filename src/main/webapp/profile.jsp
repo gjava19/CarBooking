@@ -9,11 +9,12 @@
 </head>
 <body>
 
-<div class="profile-container">
+
     <jsp:include page="Header.jsp"/>
     <c:set value="${userInfo.getFriends()}" var="friendList"/>
 
-    <main class="profile-main">
+    <main class="profile-container">
+        <div class="profile-main">
         <div class="profile-info">
             <img src="images/register.svg" alt="User Profile Picture" class="profile-picture">
             <h1 class="username"><c:out value="${userInfo.getUsername()}"/></h1>
@@ -36,8 +37,10 @@
                     </ul>
                 </c:otherwise>
             </c:choose>
-            <a href="quiz"> Quizes </a>
-
+            <div class="button-container">
+                <a class="button" href="quiz"> Quizes </a>
+            </div>
+        </div>
         </div>
     </main>
     <footer class="footer">
