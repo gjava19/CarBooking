@@ -6,14 +6,16 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css">
+<%--    <link rel="stylesheet" href="../styles/header.css">--%>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <div class="header">
-    <a href="home"> <img alt="QuizGradIcon" src="images/QuizGrandIcon.png" class="header-icon"/> </a>
+    <a href="home"> <img alt="QuizGradIcon" src="${pageContext.request.contextPath}/images/QuizGrandIcon.png" class="header-icon"/> </a>
 
     <div class="header-right">
       <div class="header-menu">
