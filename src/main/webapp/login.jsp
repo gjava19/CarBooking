@@ -15,7 +15,7 @@
     <div class="left-container">
         <div id="login-form" class="form">
             <h2>Login</h2>
-            <form action="api/login" method="post">
+            <form action="login" method="post">
                 <input type="hidden" name = "formId" value = "login">
                 <input type="text" id="login-username" name="username" placeholder="Username" required>
                 <input type="password" id="login-password" name="password" placeholder="Password" required>
