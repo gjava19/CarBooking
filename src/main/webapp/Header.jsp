@@ -25,23 +25,11 @@
             String me = null;
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
-//                    if (cookie.getName().equals("whoami")) {
-//                        me = cookie.getValue();
-//
-//                    }
+                    if (cookie.getName().equals("whoami")) me = cookie.getValue();
                 }
             }
-            UserController userController = (UserController) application.getAttribute("userController");
-
-
-
             if(me != null){
-//                User myuser = userController.getUserInfo(Integer.parseInt(me));
-//                if(myuser != null) {
-//                    System.out.println("myuser" + myuser.toString());
-//                }
-        %>
-            <a href="profile" class="roboto-regular login-button">Hi <%=me%> !</a>
+            %><a href="profile" class="roboto-regular login-button">Hi <%=me%> !</a>
             <%}else{%>
             <a href="login" class="roboto-regular login-button">Login</a>
             <%}%>
