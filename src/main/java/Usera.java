@@ -165,7 +165,7 @@ public class Usera {
         quiz.setRandomQuestion(randomQuestion);
         quiz.setImmediateAnswer(immediateAnswer);
         quiz.setMultiplePageQuiz(multiplePageQuiz);
-        quiz.setId(id);
+//        quiz.setId(id);
         quiz.setUserId(userId);
         quiz.setName(name);
         quiz.setDescription(description);

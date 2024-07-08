@@ -116,6 +116,20 @@ public class DBQuizCommunicator {
         return true;
     }
 
+    /**
+     * deletes quiz from DB
+     * @param quizName name of quiz
+     * @return true if quiz is deleted
+     */
+    public boolean deleteQuiz(String quizName) throws SQLException {
+        if (!checkQuizExists(quizName))
+            return false;
+        String sql = "delete from " + quizTable + " where name = ?"; // delete from history!!!!!!!!!
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, quizName);
+        return ps.executeUpdate() > 0;
+    }
+
 
     /**
      * finds quiz with id
@@ -133,6 +147,16 @@ public class DBQuizCommunicator {
         ResultSet rs = ps.executeQuery();
 
         return rs.next() ? writeDataToQuizObject(rs) : null;
+    }
+
+    public int getIDByQuizName(String quizName) throws SQLException {
+        String sql = "SELECT id FROM " + quizTable +" WHERE name = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, quizName);
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next() ? rs.getInt(1) : -1;
     }
 
     /**
@@ -161,9 +185,9 @@ public class DBQuizCommunicator {
      */
     private Quiz writeDataToQuizObject(ResultSet rs) throws SQLException, JsonProcessingException {
         Quiz quiz = new Quiz();
-        quiz.setId(rs.getInt("id"));
+//        quiz.setId(rs.getInt("id"));
         quiz.setUserId(rs.getInt("creator_id"));
-        quiz.setUserName(userCommunicator.getUsername(quiz.getId()));
+//        quiz.setUserName(userCommunicator.getUsername(quiz.getUserId()));
         quiz.setName(rs.getString("name"));
         quiz.setDescription(rs.getString("description"));
         quiz.setCreate_time(rs.getDate("create_time"));
@@ -210,8 +234,8 @@ public class DBQuizCommunicator {
         return false;
     }
 
-    public ArrayList<QuizAppareParameters> getAllQuiz() throws SQLException {
-        ArrayList<QuizAppareParameters> result = new ArrayList<>();
+    public ArrayList<QuizAppearParameters> getAllQuiz() throws SQLException {
+        ArrayList<QuizAppearParameters> result = new ArrayList<>();
         String sql = "SELECT creator_id, name, description FROM " + quizTable;
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -220,7 +244,7 @@ public class DBQuizCommunicator {
             String name = rs.getString("name");
             String descString = rs.getString("description");
             String creatorName = userCommunicator.getUsername(creatorId);
-            result.add(new QuizAppareParameters(name, descString, creatorName));
+            result.add(new QuizAppearParameters(name, descString, creatorName));
         }
         return result;
     }
