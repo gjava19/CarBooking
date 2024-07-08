@@ -88,9 +88,15 @@ body {
     color: #333;
 }
 
+.friend-data{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 .friends-list {
-    width: 100%;
-    max-width: 600px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .friends-list h2 {
