@@ -27,7 +27,6 @@
         <form action="result" method="post">
             <ul>
                 <%
-                    int questionIndex = 0;
                     for (Map.Entry<QuestionType, QuestionParameters> entry : quiz.getQuestions().entrySet()) {
                         QuestionType question = entry.getKey();
                         QuestionParameters params = entry.getValue();
@@ -36,29 +35,28 @@
                     <p><strong>Question:</strong> <%= question.getQuestion() %></p>
                     <p><strong>Time (seconds):</strong> <%= params.getTimeSec() %></p>
                     <p><strong>Score:</strong> <%= params.getScore() %></p>
-                    <input type="hidden" name="questionType_<%= questionIndex %>" value="<%= question.getType() %>">
-                    <input type="hidden" name="questionIndex_<%= questionIndex %>" value="<%= questionIndex %>">
-                    <label for="response_<%= questionIndex %>">Your Answer:</label>
+                    <input type="hidden" name="questionType_<%= params.getIndex() %>" value="<%= question.getType() %>">
+                    <input type="hidden" name="questionIndex_<%= params.getIndex() %>" value="<%= params.getIndex() %>">
+                    <label for="response_<%= params.getIndex() %>">Your Answer:</label>
                     <%
                         if (question.getType().equals("MultipleChoice")) {
                             MultipleChoice temp = (MultipleChoice) question;
                             for (int index = 0; index < temp.getChoices().length; index++) {
                     %>
                     <div>
-                        <input type="radio" id="response_<%= questionIndex %>_<%= index %>" name="response_<%= questionIndex %>" value="<%= temp.getChoices()[index] %>">
-                        <label for="response_<%= questionIndex %>_<%= index %>"><%= temp.getChoices()[index] %></label>
+                        <input type="radio" id="response_<%= params.getIndex() %>_<%= index %>" name="response_<%= params.getIndex() %>" value="<%= temp.getChoices()[index] %>">
+                        <label for="response_<%= params.getIndex() %>_<%= index %>"><%= temp.getChoices()[index] %></label>
                     </div>
                     <%
                         }
                     } else {
                     %>
-                    <input type="text" id="response_<%= questionIndex %>" name="response_<%= questionIndex %>">
+                    <input type="text" id="response_<%= params.getIndex() %>" name="response_<%= params.getIndex() %>">
                     <%
                         }
                     %>
                 </li>
                 <%
-                        questionIndex++;
                     }
                 %>
                 <input type="hidden" name="quizName" value="<%= quiz.getName() %>" />

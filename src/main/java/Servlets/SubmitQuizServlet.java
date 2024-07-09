@@ -19,30 +19,26 @@ public class SubmitQuizServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBQuizCommunicator quizCommunicator = (DBQuizCommunicator) getServletContext().getAttribute("quizCommunicator");
 
-        int questionCount = Integer.parseInt(request.getParameter("questionCount"));
-        Map<Integer, String> userResponses = new HashMap<>();
-
-        for (int i = 0; i < questionCount; i++) {
-            String responseValue = request.getParameter("response_" + i);
-            userResponses.put(i, responseValue);
+        String quizName = request.getParameter("quizName");
+        Quiz quiz = null;
+        try {
+            quiz = quizCommunicator.getQuizByName(quizName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         try {
-            String quizName = request.getParameter("quizName");
-            Quiz quiz = quizCommunicator.getQuizByName(quizName);
 
             if (quiz != null) {
                 int score = 0;
-                int counter = 0;
                 for (Map.Entry<QuestionType, QuestionParameters> entry : quiz.getQuestions().entrySet()) {
                     QuestionType question = entry.getKey();
                     QuestionParameters params = entry.getValue();
-                    String userResponse = userResponses.get(counter);
+                    String userResponse = request.getParameter("response_" + params.getIndex());
 
                     if (question.getResponse().equals(userResponse)) {
                         score += params.getScore();
                     }
-                    counter ++;
                 }
 
                 request.setAttribute("score", score);
@@ -50,9 +46,11 @@ public class SubmitQuizServlet extends HttpServlet {
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Quiz not found");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing quiz results.");
+
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
