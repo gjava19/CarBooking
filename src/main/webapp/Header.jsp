@@ -24,6 +24,7 @@
                 <div class="header-menu">
                     <div><a href="${pageContext.request.contextPath}/profile" class="roboto-regular menu-link"><b><c:out value="${cookie.whoami.value}"/>'s Profile </b></a></div>
                     <div><a href="${pageContext.request.contextPath}/quiz" class="roboto-regular menu-link"><b>Quizzes</b> </a></div>
+                    <div><a href="${pageContext.request.contextPath}/notifications.jsp" class="roboto-regular menu-link"><b>Notifications</b> </a></div>
                 </div>
 
                 <a href="${pageContext.request.contextPath}/logout" class="roboto-regular login-button">Logout</a>

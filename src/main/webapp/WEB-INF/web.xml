@@ -96,6 +96,12 @@
   </servlet>
 
 
+
+  <servlet>
+    <servlet-name>NotificationsServlet</servlet-name>
+    <servlet-class>Servlets.NotificationsServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>HomePage</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -139,6 +145,11 @@
   <servlet-mapping>
     <servlet-name>ApproveFriendRequestServlet</servlet-name>
     <url-pattern>/approve-friend-request</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>NotificationsServlet</servlet-name>
+    <url-pattern>/notifications</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

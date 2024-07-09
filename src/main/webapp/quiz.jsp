@@ -42,7 +42,7 @@
 <%--        </div>--%>
     </div>
     <div class="button-container">
-        <a class="btn" href="quiz/show?name=slay quiz">Show quiz</a>
+<%--        <a class="btn" href="quiz/show?name=slay quiz">Show quiz</a>--%>
         <a class="btn" href="quiz/create">Create quiz</a>
     </div>
 </main>

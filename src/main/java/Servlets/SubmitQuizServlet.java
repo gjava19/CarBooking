@@ -33,14 +33,16 @@ public class SubmitQuizServlet extends HttpServlet {
 
             if (quiz != null) {
                 int score = 0;
+                int counter = 0;
                 for (Map.Entry<QuestionType, QuestionParameters> entry : quiz.getQuestions().entrySet()) {
                     QuestionType question = entry.getKey();
                     QuestionParameters params = entry.getValue();
-                    String userResponse = userResponses.get(params.getIndex());
+                    String userResponse = userResponses.get(counter);
 
                     if (question.getResponse().equals(userResponse)) {
                         score += params.getScore();
                     }
+                    counter ++;
                 }
 
                 request.setAttribute("score", score);
