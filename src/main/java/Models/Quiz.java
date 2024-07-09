@@ -11,6 +11,7 @@ public class Quiz {
     private boolean immediateAnswer;
     private boolean multiplePageQuiz;
 
+
     private int userId;
 
     private String name;
@@ -47,8 +48,8 @@ public class Quiz {
     }
 
 
-
     public int getUserId() { return userId;   }
+
 
     public String getName() {
         return name;
@@ -76,6 +77,7 @@ public class Quiz {
     public void setMultiplePageQuiz(boolean multiplePageQuiz) {
         this.multiplePageQuiz = multiplePageQuiz;
     }
+
 
 
     public void setUserId(int userId) {

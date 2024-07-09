@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.servlet.http.Cookie;
 
-public class ProfileServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
     private static final String WHOAMI = "whoami";
 
     @Override
@@ -23,21 +23,17 @@ public class ProfileServlet extends HttpServlet {
                 }
             }
         }
-
+        ;
         if (infoCookie != null && infoCookie.getValue() != null){
             UserController userController = (UserController) getServletContext().getAttribute("userController");
             User myuser = userController.getUserInfo(infoCookie.getValue());
 
-            if(myuser != null) {
-                request.setAttribute("userInfo", myuser);
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
-            }else {
-                // Delete infoCookie when user not found with this cookie value
-                infoCookie.setMaxAge(0);
-                response.addCookie(infoCookie);
-            }
+            // Delete infoCookie when user not found with this cookie value
+            infoCookie.setMaxAge(0);
+            response.addCookie(infoCookie);
+
         }
-        response.sendRedirect( "login.jsp" );
+        response.sendRedirect( "index.jsp" );
     }
 
     @Override

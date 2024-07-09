@@ -6,107 +6,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Show Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .quiz-details {
-            margin-bottom: 30px;
-        }
-        .quiz-details p {
-            font-size: 18px;
-            color: #555;
-        }
-        h2 {
-            color: #333;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background-color: #f1f1f1;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        li p {
-            margin: 0;
-            font-size: 16px;
-            color: #555;
-        }
-        .no-quiz {
-            text-align: center;
-            color: #888;
-            font-size: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/showQuiz.css">
 </head>
 <body>
-<div class="container">
-    <h1>Quiz Details</h1>
-    <%
-        Quiz quiz = (Quiz) request.getAttribute("quiz");
-
-        if (quiz != null) {
-    %>
-    <div class="quiz-details">
-        <p><strong>Name:</strong> <%= quiz.getName() %></p>
-        <p><strong>Description:</strong> <%= quiz.getDescription() %></p>
-        <p><strong>Created by:</strong> <%= quiz.getCreatorName() %></p>
-    </div>
-    <h2>Questions</h2>
-    <ul>
+<jsp:include page="../Header.jsp"/>
+<main>
+    <div class="container">
+        <h1>Quiz Details</h1>
         <%
-            for (Map.Entry<QuestionType, QuestionParameters> entry : quiz.getQuestions().entrySet()) {
-                QuestionType question = entry.getKey();
-                QuestionParameters params = entry.getValue();
+            Quiz quiz = (Quiz) request.getAttribute("quiz");
+
+
+            if (quiz != null) {
         %>
-        <li>
-            <p><strong>Question:</strong> <%= question.getQuestion() %></p>
-            <%
-                String result = "";
-                if (question.getType().equals("MultipleChoice")){
-                    MultipleChoice temp = (MultipleChoice) question;
-                    for(int index = 0; index < temp.getChoices().length; index++) {
-                        result += temp.getChoices()[index] + "   ";
+        <div class="quiz-details">
+            <p><strong>Name:</strong> <%= quiz.getName() %></p>
+            <p><strong>Description:</strong> <%= quiz.getDescription() %></p>
+            <p><strong>Created by:</strong> <%= quiz.getUserName() %></p>
+        </div>
+        <h2>Questions</h2>
+        <form action="result" method="post">
+        <ul>
+                <%
+                    int questionIndex = 0;
+                    for (Map.Entry<QuestionType, QuestionParameters> entry : quiz.getQuestions().entrySet()) {
+                        QuestionType question = entry.getKey();
+                        QuestionParameters params = entry.getValue();
+                %>
+                <li>
+                    <p><strong>Question:</strong> <%= question.getQuestion() %></p>
+                    <%
+                        String result = "";
+                        if (question.getType().equals("MultipleChoice")){
+                            MultipleChoice temp = (MultipleChoice) question;
+                            for(int index = 0; index < temp.getChoices().length; index++) {
+                                result += temp.getChoices()[index] + "   ";
+                            }
+
+                    %>
+                    <p><strong>variants :</strong> <%= result %></p>
+                    <%}%>
+
+                    <p><strong>Time (seconds):</strong> <%= params.getTimeSec() %></p>
+                    <p><strong>Score:</strong> <%= params.getScore() %></p>
+                    <input type="hidden" name="questionType_<%= questionIndex %>" value="<%= question.getType() %>">
+                    <input type="hidden" name="questionIndex_<%= questionIndex %>" value="<%= questionIndex %>">
+                    <label for="response_<%= questionIndex %>">Your Answer:</label>
+                    <input type="text" id="response_<%= questionIndex %>" name="response_<%= questionIndex %>">
+                </li>
+                <%
+                        questionIndex++;
                     }
-
-            %>
-                <p><strong>variants :</strong> <%= result %></p>
-            <%}%>
-
-            <p><strong>Time (seconds):</strong> <%= params.getTimeSec() %></p>
-            <p><strong>Score:</strong> <%= params.getScore() %></p>
-        </li>
+                %>
+                <input type="hidden" name="quizName" value="<%= quiz.getName() %>" />
+            </ul>
+            <input type="hidden" name="questionCount" value="<%= quiz.getQuestions().size() %>">
+            <button type="submit">Submit</button>
+        </form>
+        <%
+        } else {
+        %>
+        <p class="no-quiz">No quiz found.</p>
         <%
             }
         %>
-    </ul>
-    <%
-    } else {
-    %>
-    <p class="no-quiz">No quiz found.</p>
-    <%
-        }
-    %>
-</div>
+    </div>
+</main>
 </body>
 </html>

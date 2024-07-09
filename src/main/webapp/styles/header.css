@@ -30,18 +30,20 @@ body {
     margin-right: 20px;
 }
 
-.menu-item {
-    color: #333;
+.menu-link {
     cursor: pointer;
     transition: color 0.3s;
+    text-decoration: none;
+    color: #3d4c59;
 }
 
-.menu-item:hover {
+.menu-link:hover {
     color: #f5a623;
 }
 
 .login-button {
     padding: 10px 20px;
+    margin: 10px;
     color: #fff;
     background-color: #f5a623;
     border: none;

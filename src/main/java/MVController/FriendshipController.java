@@ -95,56 +95,42 @@ public class FriendshipController {
     /**
      * approve friendship
      *
-     * @param user1 user which decide to approve
-     * @param user2 user which sent request
+     * @param user1Id user which decide to approve
+     * @param user2Id user which sent request
      * @return true if approved
      * @throws SQLException
      */
-    public boolean approveFriendship(User user1, FriendInt user2) throws SQLException {
-        boolean status = fCommunicator.changeStatus(user1.getId(), user2.getId(), DBFriendshipCommunicator.FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS);
+    public boolean approveFriendship(int user1Id, int user2Id) throws SQLException {
+        boolean status = fCommunicator.changeStatus(user1Id,user2Id, DBFriendshipCommunicator.FriendshipStatus.FRIENDSHIP_STATUS_FRIENDS);
         if( ! status) return false;
-        user1.removeRequested(user2);
-        user1.addFriend(user2);
-//        user2.removeSent(user1);
-//        user2.addFriend(user1);
-
         return true;
     }
 
     /**
      * reject friendship
      *
-     * @param user1 user which rejected
-     * @param user2 user which sent
+     * @param user1Id user which rejected
+     * @param user2Id user which sent
      * @return true if rejected
      * @throws SQLException
      */
-    public boolean rejectFriendship(User user1, FriendInt user2) throws SQLException {
-        boolean status = fCommunicator.makeStranger(user1.getId(), user2.getId());
+    public boolean rejectFriendship(int user1Id, int user2Id) throws SQLException {
+        boolean status = fCommunicator.makeStranger(user1Id, user2Id);
         if(! status) return false;
-        user1.removeFriend(user2);
-        user1.removeRequested(user2);
-
-//        user2.removeFriend(user1);
-//        user2.removeSent(user1);
-
         return true;
     }
 
     /**
      * send friendship
      *
-     * @param user1 user which sends
-     * @param user2 user which receives
+     * @param user1Id user which sends
+     * @param user2Id user which receives
      * @return true if sent
      * @throws SQLException
      */
-    public boolean sendFriendship(User user1, FriendInt user2) throws SQLException {
-        boolean status = fCommunicator.createRequest(user1.getId(), user2.getId());
-        if(! status) return false;
-        user1.addSent(user2);
-//        user2.addSent(user2);
-
+    public boolean sendFriendship( int user1Id, int user2Id) throws SQLException {
+        boolean status = fCommunicator.createRequest(user1Id, user2Id);
+        if(!status) return false;
         return true;
     }
 }

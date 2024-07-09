@@ -1,6 +1,8 @@
 package db;
 
+import Models.Friend;
 import java.sql.*;
+import java.util.ArrayList;
 
 import static db.DBFriendshipCommunicator.friendshipTable;
 
@@ -174,6 +176,19 @@ public class DBUserCommunicator {
         if (rs.next()) return rs.getInt(columnUserNames[COLUMNS_USER_ID]);
 
         return -1;
+    }
+
+    public ArrayList<Friend> getFilterUser(String filterWord) throws SQLException {
+        ArrayList<Friend> result = new ArrayList<>();
+        String sql = "SELECT id, username FROM " + userTable + " WHERE username LIKE '%"+filterWord+"%'";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            int id = rs.getInt("id");
+            String username = rs.getString("username");
+            result.add(new Friend(username, id));
+        }
+        return result;
     }
 
 }

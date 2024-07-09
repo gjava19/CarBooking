@@ -1,10 +1,9 @@
 package MVController;
 
+import Models.Friend;
 import Models.User;
 import db.DBConnector;
-import db.DBFriendshipCommunicator;
 import db.DBUserCommunicator;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -83,6 +82,11 @@ public class UserController {
 
         for (User curUser : userList) {
             if (curUser.getUsername().equals(username)) {
+                try {
+                    fCommunicator.fillUserRelations(curUser);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 return curUser;
             }
         }
@@ -140,6 +144,13 @@ public class UserController {
         return result.toString();
     }
 
-
-
+    public ArrayList<Friend> getFilterUser(String filterWord){
+        ArrayList<Friend> result = new ArrayList<>();
+        try {
+            result = uCommunicator.getFilterUser(filterWord);
+        } catch (SQLException e) {
+            return result;
+        }
+        return result;
+    }
 }

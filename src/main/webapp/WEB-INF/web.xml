@@ -2,7 +2,12 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
   <display-name>Archetype Created Web Application</display-name>
 
   <listener>
@@ -31,6 +36,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>Servlets.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>Servlets.RegisterServlet</servlet-class>
   </servlet>
@@ -56,10 +66,34 @@
   </servlet>
 
   <servlet>
+    <servlet-name>SubmitQuizServlet</servlet-name>
+    <servlet-class>Servlets.SubmitQuizServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>ProfileServlet</servlet-name>
     <servlet-class>Servlets.ProfileServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>SearchUserServlet</servlet-name>
+    <servlet-class>Servlets.SearchUserServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SendFriendRequestServlet</servlet-name>
+    <servlet-class>Servlets.SendFriendRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ApproveFriendRequestServlet</servlet-name>
+    <servlet-class>Servlets.ApproveFriendRequestServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RejectFriendRequestServlet</servlet-name>
+    <servlet-class>Servlets.RejectFriendRequestServlet</servlet-class>
+  </servlet>
 
 
   <servlet-mapping>
@@ -83,9 +117,36 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SearchUserServlet</servlet-name>
+    <url-pattern>/search-user</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SendFriendRequestServlet</servlet-name>
+    <url-pattern>/send-friend-request</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ApproveFriendRequestServlet</servlet-name>
+    <url-pattern>/approve-friend-request</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RejectFriendRequestServlet</servlet-name>
+    <url-pattern>/reject-friend-request</url-pattern>
+  </servlet-mapping>
+
+
 
   <servlet-mapping>
     <servlet-name>ForgetPasswordServlet</servlet-name>
@@ -113,9 +174,15 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>SubmitQuizServlet</servlet-name>
+    <url-pattern>/quiz/result</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>QuizServlet</servlet-name>
     <url-pattern>/quiz</url-pattern>
   </servlet-mapping>
+
 
 
 

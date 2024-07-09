@@ -10,7 +10,7 @@ public class User implements FriendInt{
     private int id;
     private HashSet<String> friends;
     private HashSet<String> sent;
-    private HashSet<String> requested;
+    private HashSet<Friend> requested;
 
     public User(String username, String password, int id) {
         this.username = username;
@@ -18,7 +18,7 @@ public class User implements FriendInt{
         this.id = id;
         this.friends    = new HashSet<String>();
         this.sent       = new HashSet<String>();
-        this.requested  = new HashSet<String>();
+        this.requested  = new HashSet<Friend>();
     }
 
     public String getUsername() {
@@ -32,7 +32,7 @@ public class User implements FriendInt{
     }
     public HashSet<String> getFriends()   { return friends; };
     public HashSet<String> getSent()      { return sent; };
-    public HashSet<String> getRequested() { return requested; };
+    public HashSet<Friend> getRequested() { return requested; };
 
     public void setUsername(String username) {
         this.username = username;
@@ -45,7 +45,10 @@ public class User implements FriendInt{
     }
     public void addFriend(FriendInt user)           { friends.add(user.getUsername());}
     public void addSent(FriendInt user)             { sent.add(user.getUsername());}
-    public void addRequested(FriendInt user)        { requested.add(user.getUsername());}
+    public void addRequested(FriendInt user)        {
+        Friend curFriend = new Friend(user.getUsername(), user.getId());
+        requested.add(curFriend);
+    }
     public void removeAllFriend(FriendInt user)     { friends.removeAll(friends);};
     public void removeFriend(FriendInt user)        { friends.remove(user.getUsername());}
     public void removeAllSent(FriendInt user)       { sent.removeAll(sent);};

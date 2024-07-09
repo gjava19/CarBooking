@@ -1,5 +1,6 @@
 package Servlets;
 
+import MVController.FriendshipController;
 import MVController.UserController;
 import db.DBConnector;
 import db.DBQuizCommunicator;
@@ -16,6 +17,7 @@ public class Listener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         DBConnector dbConnector  = new DBConnector();
         UserController userController = new UserController(dbConnector);
+        FriendshipController friendshipController = new FriendshipController(dbConnector);
 
         DBQuizCommunicator quizCommunicator;
         try {
@@ -25,6 +27,7 @@ public class Listener implements ServletContextListener {
         }
 
         servletContextEvent.getServletContext().setAttribute("userController", userController);
+        servletContextEvent.getServletContext().setAttribute("friendshipController", friendshipController);
         servletContextEvent.getServletContext().setAttribute("quizCommunicator", quizCommunicator);
 
     }
