@@ -46,8 +46,13 @@
                             <ul class="friends">
                                 <c:forEach var="curFriendRequest" items="${friendRequestList}">
                                     <li class="friend">
-                                        <img src="images/register.svg" alt="Friend 1" class="friend-picture">
-                                        <span class="friend-name"><c:out value="${curFriendRequest}"/></span>
+                                        <form action="approve-friend-request" method="post">
+                                            <img src="images/register.svg" alt="Friend 1" class="friend-picture">
+                                            <span class="friend-name"><c:out value="${curFriendRequest.getUsername()}"/></span>
+                                            <input type="hidden" name="myid" value="${userInfo.getId()}">
+                                            <input type="hidden" name="userid" value="${curFriendRequest.getId()}">
+                                            <button class= "search-button" type="submit">Approve</button>
+                                        </form>
                                     </li>
                                 </c:forEach>
                             </ul>
