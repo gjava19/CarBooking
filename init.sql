@@ -23,9 +23,10 @@ create table quizwebdb.quiz(
                  creator_id         int not null,
                  name               char(128) not null unique,
                  description        char(128),
-                 mode_random        boolean,
-                 mode_pages         boolean,
-                 mode_immediate     boolean,
+                 create_time mediumtext,
+                 mode_random        tinyint(1),
+                 mode_pages         tinyint(1),
+                 mode_immediate     tinyint(1),
                  quid_data          JSON
 );
 

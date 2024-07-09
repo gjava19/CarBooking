@@ -215,7 +215,10 @@
                 modeImmediate: this.querySelector('select[name="modeImmediate"]').value,
                 questions: JSON.stringify(questions)
             })
-        })
+        }).then(
+            ()=> window.location.replace("/QuizApp_war/quiz")
+        )
+
     });
 </script>
 </body>
