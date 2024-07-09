@@ -78,6 +78,10 @@ public class UserController {
         return null;
     }
 
+    public void deleteUser(String username) throws SQLException {
+        uCommunicator.deleteUser(username);
+    }
+
     public User getUserInfo(String username)  {
 
         for (User curUser : userList) {
