@@ -32,7 +32,18 @@
                         QuestionParameters params = entry.getValue();
                 %>
                 <li>
-                    <p><strong>Question:</strong> <%= question.getQuestion() %></p>
+                    <%
+                        if(question.getType().equals("PictureResponse")){
+                    %>
+                        <p>
+                            <strong>Question:</strong>
+                            <img src=<%= question.getQuestion() %> width="300" height=auto>
+                        </p>
+                    <%
+                        }else{
+                    %>
+                        <p><strong>Question:</strong> <%= question.getQuestion() %></p>
+                    <%}%>
                     <p><strong>Time (seconds):</strong> <%= params.getTimeSec() %></p>
                     <p><strong>Score:</strong> <%= params.getScore() %></p>
                     <input type="hidden" name="questionType_<%= params.getIndex() %>" value="<%= question.getType() %>">
