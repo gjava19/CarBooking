@@ -30,12 +30,14 @@ body {
     margin-right: 20px;
 }
 
-.menu-item {
+.menu-link {
     cursor: pointer;
     transition: color 0.3s;
+    text-decoration: none;
+    color: #3d4c59;
 }
 
-.menu-item:hover {
+.menu-link:hover {
     color: #f5a623;
 }
 

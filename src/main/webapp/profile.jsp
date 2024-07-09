@@ -76,9 +76,9 @@
                     </c:choose>
                 </div>
             </div>
-            <div>
+            <div class="search-container">
                 <h1>Search other users</h1>
-                <form action="search-user" method="get">
+                <form action="search-user" method="get" class="search-form">
                     <input type="text" name="query" placeholder="Type your search query" required />
                     <button type="submit">Search</button>
                 </form>
@@ -86,20 +86,20 @@
                     <c:if test="${not empty results}">
                         <div>
                             <c:forEach var="curUser" items="${results}">
-                                <form action="add-friend" method="post">
+                                <form action="add-friend" method="post" class="search-result">
                                     <input type="hidden" name="myid" value="${userInfo.getId()}">
                                     <input type="hidden" name="userid" value="${curUser.getId()}">
                                     <div><c:out value="${curUser.getUsername()}"/></div>
-                                    <button type="submit">Add as friend</button>
+                                    <button class= "search-button" type="submit">Add as friend</button>
                                 </form>
                             </c:forEach>
                         </div>
                     </c:if>
                 </div>
             </div>
-            <div class="button-container">
-                <a class="button" href="quiz"> Quizes </a>
-            </div>
+<%--            <div class="button-container">--%>
+<%--                <a class="button" href="quiz"> Quizes </a>--%>
+<%--            </div>--%>
         </div>
     </main>
     <footer class="footer">

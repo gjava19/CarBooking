@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/header.css">
 <%--    <link rel="stylesheet" href="../styles/header.css">--%>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,17 +18,22 @@
     <img alt="QuizGradIcon" src="${pageContext.request.contextPath}/images/QuizGrandIcon.png" class="header-icon"/>
 
     <div class="header-right">
-      <div class="header-menu">
-        <div class="roboto-regular menu-item">How it works?</div>
-        <div class="roboto-regular menu-item">Features</div>
-        <div class="roboto-regular menu-item">About us</div>
-      </div>
+
         <c:choose>
             <c:when test="${cookie.whoami.value != null}">
-                <a href="${pageContext.request.contextPath}/profile" class="roboto-regular login-button">Hi <c:out value="${cookie.whoami.value}"/> !</a>
+                <div class="header-menu">
+                    <div><a href="${pageContext.request.contextPath}/profile" class="roboto-regular menu-link"><b><c:out value="${cookie.whoami.value}"/>'s Profile </b></a></div>
+                    <div><a href="${pageContext.request.contextPath}/quiz" class="roboto-regular menu-link"><b>Quizzes</b> </a></div>
+                </div>
+
                 <a href="${pageContext.request.contextPath}/logout" class="roboto-regular login-button">Logout</a>
             </c:when>
             <c:otherwise>
+                <div class="header-menu">
+                    <div class="roboto-regular menu-link">How it works?</div>
+                    <div class="roboto-regular menu-link">Features</div>
+                    <div class="roboto-regular menu-link">About us</div>
+                </div>
                 <a href="${pageContext.request.contextPath}/login" class="roboto-regular login-button">Login</a>
             </c:otherwise>
         </c:choose>

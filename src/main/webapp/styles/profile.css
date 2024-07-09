@@ -57,7 +57,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
 }
 
 .profile-main {
@@ -88,15 +87,21 @@ body {
     color: #333;
 }
 
-.friend-data{
+.friend-data {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    flex-wrap: wrap;
 }
+
 .friends-list {
     border: 1px solid #888888;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
 }
 
 .friends-list h2 {
@@ -116,6 +121,10 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+.friend:last-child {
+    border-bottom: none;
+}
+
 .friend-picture {
     width: 50px;
     height: 50px;
@@ -124,6 +133,64 @@ body {
 }
 
 .friend-name {
+    font-size: 18px;
+    color: #333;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+.search-results {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.result-username {
     font-size: 18px;
     color: #333;
 }
@@ -144,8 +211,22 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s;
 }
+
 .button:hover {
     background-color: #0056b3;
+}
+
+.search-button{
+    background-color:#007bff;
+    color: white;
+    border: none;
+    padding: 3px;
+    border-radius: 5px;
+
+}
+
+.search-button:hover{
+    background-color:#0056b3;
 }
 
 .footer {
