@@ -96,7 +96,7 @@
                         <div>
                             <c:forEach var="curUser" items="${results}">
                                 <c:if test="${userInfo.getId() != curUser.getId()}">
-                                    <form action="add-friend" method="post" class="search-result">
+                                    <form action="send-friend-request" method="post" class="search-result">
                                         <input type="hidden" name="myid" value="${userInfo.getId()}">
                                         <input type="hidden" name="userid" value="${curUser.getId()}">
                                         <div><c:out value="${curUser.getUsername()}"/></div>
