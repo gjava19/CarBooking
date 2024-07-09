@@ -76,8 +76,8 @@ public class User implements FriendInt{
         User input = (User)obj;
 
         return  input.id == id &&
-                input.username == username &&
-                input.password == password;
+                input.username.equals(username) &&
+                input.password.equals(password);
 
     }
 }
