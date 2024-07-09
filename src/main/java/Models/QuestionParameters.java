@@ -9,6 +9,8 @@ public class QuestionParameters {
     private int score;
     @JsonProperty("index")
     private int index;
+    @JsonProperty("id")
+    private int id;
 
     public QuestionParameters(){}
 
@@ -34,12 +36,20 @@ public class QuestionParameters {
         this.score = score;
     }
 
-    public int getId() {
+    public int getIndex() {
         return index;
     }
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -48,6 +58,7 @@ public class QuestionParameters {
                 "\"timeSec\"=\"" + timeSec +
                 "\", \"score\"=\"" + score +
                 "\", \"index\"=\"" + index +
+                "\", \"id\"=\"" + id +
                 "\"}";
     }
 }

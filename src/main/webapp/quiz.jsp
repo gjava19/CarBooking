@@ -21,6 +21,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Creator</th>
+                <th>Link</th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +32,9 @@
                 <td><%=curQuiz.getQuizName()%></td>
                 <td><%=curQuiz.getQuizDescription()%></td>
                 <td><%=curQuiz.getCreatorName()%></td>
+                <td class="button-container">
+                    <a class="btn" href="quiz/show?name=<%=curQuiz.getQuizName()%>">Show quiz</a>
+                </td>
             </tr>
             <%}%>
             </tbody>

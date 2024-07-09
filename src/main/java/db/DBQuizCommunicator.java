@@ -185,9 +185,9 @@ public class DBQuizCommunicator {
      */
     private Quiz writeDataToQuizObject(ResultSet rs) throws SQLException, JsonProcessingException {
         Quiz quiz = new Quiz();
-//        quiz.setId(rs.getInt("id"));
+        quiz.setId(rs.getInt("id"));
         quiz.setUserId(rs.getInt("creator_id"));
-//        quiz.setUserName(userCommunicator.getUsername(quiz.getUserId()));
+        quiz.setUserName(userCommunicator.getUsername(quiz.getUserId()));
         quiz.setName(rs.getString("name"));
         quiz.setDescription(rs.getString("description"));
         quiz.setCreate_time(rs.getDate("create_time"));

@@ -70,7 +70,7 @@
     <div class="quiz-details">
         <p><strong>Name:</strong> <%= quiz.getName() %></p>
         <p><strong>Description:</strong> <%= quiz.getDescription() %></p>
-        <p><strong>Created by:</strong> <%= quiz.getCreatorName() %></p>
+        <p><strong>Created by:</strong> <%= quiz.getUserName() %></p>
     </div>
     <h2>Questions</h2>
     <ul>
