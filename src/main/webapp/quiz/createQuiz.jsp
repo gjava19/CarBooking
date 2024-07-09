@@ -229,7 +229,7 @@
 
              if(response.ok && response.status === 200) {
                  console.log("response", response);
-                 // window.location.replace("/QuizApp_war/quiz")
+                 window.location.replace("/QuizApp_war/quiz")
              }else{
                  console.log("response", response);
              }
