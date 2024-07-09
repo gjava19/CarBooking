@@ -11,6 +11,7 @@ public class Quiz {
     private boolean immediateAnswer;
     private boolean multiplePageQuiz;
 
+
     private int id;
     private String userName;
     private int userId;
@@ -23,9 +24,8 @@ public class Quiz {
 
     public Quiz(){}
 
-    public Quiz(boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz, 
-                int userId,
-                String name, String description, Date create_time,
+    public Quiz(int userId, String name, String description, Date create_time,
+                boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz,
                 HashMap<QuestionType, QuestionParameters> questions) {
         this.randomQuestion = randomQuestion;
         this.immediateAnswer = immediateAnswer;
@@ -36,7 +36,6 @@ public class Quiz {
         this.create_time = create_time;
         this.questions = questions;
     }
-
 
     public boolean isRandomQuestion() {
         return randomQuestion;
@@ -83,7 +82,7 @@ public class Quiz {
     public void setMultiplePageQuiz(boolean multiplePageQuiz) {
         this.multiplePageQuiz = multiplePageQuiz;
     }
-
+        
     public void setId(int id) {
         this.id = id;
     }
@@ -95,6 +94,7 @@ public class Quiz {
     public void setUserName(String name) {
         this.userName = name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -125,9 +125,9 @@ public class Quiz {
         result += "create tile = " + create_time + "\r\n";
         if(questions != null)result += "questions = " + questions + "\r\n";
 
-        return result;
+        return result;;
     }
-
+    
     @Override
     public boolean equals(Object o){
         if (o instanceof Quiz){
@@ -136,5 +136,4 @@ public class Quiz {
         }
         return false;
     }
-
 }

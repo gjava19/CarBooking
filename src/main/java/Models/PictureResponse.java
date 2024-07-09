@@ -45,4 +45,14 @@ public class PictureResponse implements QuestionType {
     public String getType() {
         return "PictureResponse";
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof PictureResponse){
+            PictureResponse obj = (PictureResponse) o;
+            return obj.getQuestion().equals(this.getQuestion()) &&
+                    obj.getResponse().equals(this.getResponse());
+        }
+        return false;
+    }
 }
