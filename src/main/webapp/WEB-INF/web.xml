@@ -66,6 +66,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>SubmitQuizServlet</servlet-name>
+    <servlet-class>Servlets.SubmitQuizServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>ProfileServlet</servlet-name>
     <servlet-class>Servlets.ProfileServlet</servlet-class>
   </servlet>
@@ -169,9 +174,15 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>SubmitQuizServlet</servlet-name>
+    <url-pattern>/quiz/result</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>QuizServlet</servlet-name>
     <url-pattern>/quiz</url-pattern>
   </servlet-mapping>
+
 
 
 

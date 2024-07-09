@@ -102,7 +102,17 @@ public class CreateQuizServlet  extends HttpServlet {
                 } else if (type.equals("FillInTheBlank")) {
                     temp = new FillInTheBlank(objNode.get("question").asText(), objNode.get("response").asText()) ;
                 } else if (type.equals("MultipleChoice")) {
-                    temp = new MultipleChoice(objNode.get("question").asText(), objNode.get("choices").asText().split(","), objNode.get("correctAnswer").asText()) ;
+                    JsonNode choicesArr = objNode.get("choices");
+                    ArrayList<String> arr = new ArrayList<>();
+
+                    for(JsonNode node : choicesArr){
+                        arr.add(node.asText());
+                    }
+                    String lastArr[] = arr.toArray(new String[arr.size()]);
+
+
+
+                    temp = new MultipleChoice(objNode.get("question").asText(), lastArr, objNode.get("correctAnswer").asText()) ;
                 }
                 JsonNode params = objNode.get("questionParams");
                 questionMap.put(temp, new QuestionParameters(Integer.parseInt(params.get("timeSec").asText()),
