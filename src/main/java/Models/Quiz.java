@@ -12,6 +12,8 @@ public class Quiz {
     private boolean multiplePageQuiz;
 
 
+    private int id;
+    private String userName;
     private int userId;
 
     private String name;
@@ -47,9 +49,12 @@ public class Quiz {
         return multiplePageQuiz;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public int getUserId() { return userId;   }
-
+    public String getUserName() { return userName;   }
 
     public String getName() {
         return name;
@@ -77,11 +82,17 @@ public class Quiz {
     public void setMultiplePageQuiz(boolean multiplePageQuiz) {
         this.multiplePageQuiz = multiplePageQuiz;
     }
-
-
+        
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+    
+    public void setUserName(String name) {
+        this.userName = name;
     }
 
 
@@ -106,14 +117,17 @@ public class Quiz {
         result += "randomQuestion = " + randomQuestion + "\r\n";
         result += "immediateAnswer = " + immediateAnswer + "\r\n";
         result += "multiplePageQuiz = " + multiplePageQuiz + "\r\n";
+        result += "id = " + id + "\r\n";
         result += "userId = " + userId + "\r\n";
+        result += "userName = " + userName + "\r\n";
         result += "name = " + name + "\r\n";
         result += "description = " + description + "\r\n";
         result += "create tile = " + create_time + "\r\n";
-        if(questions != null) result += "questions = " + questions + "\r\n";
+        if(questions != null)result += "questions = " + questions + "\r\n";
 
-        return result;
+        return result;;
     }
+    
     @Override
     public boolean equals(Object o){
         if (o instanceof Quiz){
