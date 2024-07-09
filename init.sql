@@ -19,7 +19,7 @@ create table quizwebdb.friendship (
 );
 
 create table quizwebdb.quiz(
-                 id                 int primary key,
+                 id                 int primary key auto_increment,
                  creator_id         int not null,
                  name               char(128) not null unique,
                  description        char(128),
@@ -27,7 +27,7 @@ create table quizwebdb.quiz(
                  mode_random        boolean,
                  mode_pages         boolean,
                  mode_immediate     boolean,
-                 quid_data          JSON
+                 quiz_data          JSON
 );
 
 create table quizwebdb.quizHistory(
