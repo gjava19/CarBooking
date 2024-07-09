@@ -46,6 +46,16 @@
   </servlet>
 
   <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>Servlets.AdminServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AdminDeleteUserServlet</servlet-name>
+    <servlet-class>Servlets.AdminDeleteUserServlet</servlet-class>
+  </servlet>
+
+  <servlet>
     <servlet-name>ForgetPasswordServlet</servlet-name>
     <servlet-class>Servlets.ForgetPasswordServlet</servlet-class>
   </servlet>
@@ -130,6 +140,16 @@
   <servlet-mapping>
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AdminDeleteUserServlet</servlet-name>
+    <url-pattern>/adminDeleteUser</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

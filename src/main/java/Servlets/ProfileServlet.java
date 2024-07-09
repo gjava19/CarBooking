@@ -37,7 +37,7 @@ public class ProfileServlet extends HttpServlet {
                 response.addCookie(infoCookie);
             }
         }
-        response.sendRedirect( "login.jsp" );
+//        response.sendRedirect( "login.jsp" );
     }
 
     @Override
