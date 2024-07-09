@@ -76,8 +76,8 @@
   </servlet>
 
   <servlet>
-    <servlet-name>AddFriendServlet</servlet-name>
-    <servlet-class>Servlets.AddFriendServlet</servlet-class>
+    <servlet-name>SendFriendRequestServlet</servlet-name>
+    <servlet-class>Servlets.SendFriendRequestServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -116,8 +116,8 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>AddFriendServlet</servlet-name>
-    <url-pattern>/add-friend</url-pattern>
+    <servlet-name>SendFriendRequestServlet</servlet-name>
+    <url-pattern>/send-friend-request</url-pattern>
   </servlet-mapping>
 
 

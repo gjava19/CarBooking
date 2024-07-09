@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 
-public class AddFriendServlet extends HttpServlet {
+public class SendFriendRequestServlet extends HttpServlet {
     private static final String WHOAMI = "whoami";
 
     @Override
