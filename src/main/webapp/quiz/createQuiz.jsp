@@ -67,8 +67,8 @@
                 <div class="questionDetails"></div>
 
                 <p>
-                    <label for="id">ID:</label>
-                    <input type="number" name="id" required>
+                    <label for="Index">Index:</label>
+                    <input type="number" name="index" required>
                 </p>
                 <p>
                     <label for="score">Score:</label>
@@ -154,17 +154,16 @@
     document.getElementById('quizForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const formData = new FormData(this);
         const questions = [];
         const questionDivs = questionsContainer.querySelectorAll('.question');
 
         questionDivs.forEach(div => {
             const type = div.querySelector('.questionType').value;
-            const id = div.querySelector('input[name="id"]').value;
+            const index = div.querySelector('input[name="index"]').value;
             const score = div.querySelector('input[name="score"]').value;
             const timeSec = div.querySelector('input[name="timeSec"]').value;
             const questionDetails = div.querySelector('.questionDetails');
-            const questionParams = { id: parseInt(id), score: parseInt(score), timeSec: parseInt(timeSec) };
+            const questionParams = { index: parseInt(index), score: parseInt(score), timeSec: parseInt(timeSec) };
 
             let questionObj;
             switch (type) {
@@ -206,23 +205,17 @@
             questions.push(questionObj);
         });
 
-        formData.append('questions', JSON.stringify(questions));
-
-        fetch('createQuizServlet', {
+        fetch('create', {
             method: 'POST',
-            body: formData
-        }).then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Quiz created successfully!');
-                    window.location.href = 'quizList.jsp'; // Redirect to quiz list page
-                } else {
-                    alert('Error creating quiz: ' + data.message);
-                }
-            }).catch(error => {
-            console.error('Error:', error);
-            alert('Error creating quiz');
-        });
+            body: JSON.stringify({
+                name: this.querySelector('input[name="name"]').value,
+                description: this.querySelector('textarea[name="description"]').value,
+                modeRandom: this.querySelector('select[name="modeRandom"]').value,
+                modePages: this.querySelector('select[name="modePages"]').value,
+                modeImmediate: this.querySelector('select[name="modeImmediate"]').value,
+                questions: JSON.stringify(questions)
+            })
+        })
     });
 </script>
 </body>
