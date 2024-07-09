@@ -12,7 +12,7 @@
     <div class="container">
         <h1>Quiz Results</h1>
         <p><strong>Your Score:</strong> <%= request.getAttribute("score") %></p>
-        <a href="showQuiz.jsp?name=<%= request.getParameter("quizName") %>">Back to Quiz</a>
+        <a href="${pageContext.request.contextPath}/quiz">Back to Quizzes</a>
     </div>
 </main>
 </body>

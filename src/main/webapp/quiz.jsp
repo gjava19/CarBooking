@@ -46,5 +46,8 @@
         <a class="btn" href="quiz/create">Create quiz</a>
     </div>
 </main>
+<footer class="footer">
+    <p>&copy; 2024 QuizGrad. All rights reserved.</p>
+</footer>
 </body>
 </html>
