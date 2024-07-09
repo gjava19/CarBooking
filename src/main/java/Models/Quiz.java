@@ -11,8 +11,6 @@ public class Quiz {
     private boolean immediateAnswer;
     private boolean multiplePageQuiz;
 
-//    private int id;
-//    private String userName;
     private int userId;
 
     private String name;
@@ -23,9 +21,8 @@ public class Quiz {
 
     public Quiz(){}
 
-    public Quiz(boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz, 
-                int userId,
-                String name, String description, Date create_time,
+    public Quiz(int userId, String name, String description, Date create_time,
+                boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz,
                 HashMap<QuestionType, QuestionParameters> questions) {
         this.randomQuestion = randomQuestion;
         this.immediateAnswer = immediateAnswer;
@@ -36,7 +33,6 @@ public class Quiz {
         this.create_time = create_time;
         this.questions = questions;
     }
-
 
     public boolean isRandomQuestion() {
         return randomQuestion;
@@ -50,12 +46,9 @@ public class Quiz {
         return multiplePageQuiz;
     }
 
-//    public int getId() {
-//        return id;
-//    }
+
 
     public int getUserId() { return userId;   }
-//    public String getCreatorName() { return userName;   }
 
     public String getName() {
         return name;
@@ -84,17 +77,11 @@ public class Quiz {
         this.multiplePageQuiz = multiplePageQuiz;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
-//    public void setUserName(String name) {
-//        this.userName = name;
-//    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -117,17 +104,14 @@ public class Quiz {
         result += "randomQuestion = " + randomQuestion + "\r\n";
         result += "immediateAnswer = " + immediateAnswer + "\r\n";
         result += "multiplePageQuiz = " + multiplePageQuiz + "\r\n";
-//        result += "id = " + id + "\r\n";
         result += "userId = " + userId + "\r\n";
-//        result += "userName = " + userName + "\r\n";
         result += "name = " + name + "\r\n";
         result += "description = " + description + "\r\n";
         result += "create tile = " + create_time + "\r\n";
-        if(questions != null)result += "questions = " + questions + "\r\n";
+        if(questions != null) result += "questions = " + questions + "\r\n";
 
         return result;
     }
-
     @Override
     public boolean equals(Object o){
         if (o instanceof Quiz){
@@ -136,5 +120,4 @@ public class Quiz {
         }
         return false;
     }
-
 }

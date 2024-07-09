@@ -11,6 +11,10 @@ public class QuizAppearParameters {
         this.creatorName = creatorName;
     }
 
+    public QuizAppearParameters() {
+
+    }
+
     public String getQuizName() {
         return quizName;
     }
@@ -37,7 +41,7 @@ public class QuizAppearParameters {
 
     @Override
     public String toString() {
-        return "quizAppareParameters{" +
+        return "quizAppearParameters{" +
                 "quizName='" + quizName + '\'' +
                 ", quizDescription='" + quizDescription + '\'' +
                 ", creatorName='" + creatorName + '\'' +

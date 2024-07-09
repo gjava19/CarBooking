@@ -50,4 +50,15 @@ public class QuestionParameters {
                 "\", \"id\"=\"" + id +
                 "\"}";
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof QuestionParameters){
+            QuestionParameters obj = (QuestionParameters) o;
+            return obj.getId() == this.getId() &&
+                    obj.getScore() == this.getScore() &&
+                    obj.getTimeSec() == this.getTimeSec();
+        }
+        return false;
+    }
 }
