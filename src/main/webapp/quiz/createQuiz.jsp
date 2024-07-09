@@ -64,7 +64,16 @@
                     <option value="FillInTheBlank">Fill in the Blank</option>
                 </select>
 
-                <div class="questionDetails"></div>
+                <div class="questionDetails">
+                    <p>
+                        <label for="question">Question:</label>
+                        <input type="text" name="question" required>
+                    </p>
+                    <p>
+                        <label for="response">Response:</label>
+                        <input type="text" name="response" required>
+                    </p>
+                </div>
 
                 <p>
                     <label for="Index">Index:</label>
@@ -215,10 +224,16 @@
                 modeImmediate: this.querySelector('select[name="modeImmediate"]').value,
                 questions: JSON.stringify(questions)
             })
-        }).then(
-            ()=> window.location.replace("/QuizApp_war/quiz")
-        )
+        }).then( response =>
+        {
 
+             if(response.ok && response.status === 200) {
+                 console.log("response", response);
+                 // window.location.replace("/QuizApp_war/quiz")
+             }else{
+                 console.log("response", response);
+             }
+        })
     });
 </script>
 </body>

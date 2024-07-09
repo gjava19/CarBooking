@@ -73,17 +73,20 @@ public class CreateQuizServlet  extends HttpServlet {
         quiz.setUserId(myuser.getId());
 
         String jsonArray = jsonNode.get("questions").asText();
-        if(deserializeReceivedQuiz(jsonArray, quiz) == false) {
-
+        if(!deserializeReceivedQuiz(jsonArray, quiz)) {
             return;
         }
 
         try {
-            quizCommunicator.createQuiz(quiz);
+            if(quizCommunicator.createQuiz(quiz)){
+                resp.setStatus(200);
+            }else{
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Can't create quiz");
+            }
         } catch (SQLException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Can't create quiz");
             throw new RuntimeException(e);
         }
-        //TODO resp.sendRedirect("quiz.jsp"); es ver gavakete da dzaan medzinebaa
     }
 
     private boolean deserializeReceivedQuiz(String quizDataJson, Quiz quiz) throws JsonProcessingException {
