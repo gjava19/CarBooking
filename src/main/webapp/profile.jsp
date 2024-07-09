@@ -1,3 +1,4 @@
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -94,12 +95,16 @@
                     <c:if test="${not empty results}">
                         <div>
                             <c:forEach var="curUser" items="${results}">
-                                <form action="add-friend" method="post" class="search-result">
-                                    <input type="hidden" name="myid" value="${userInfo.getId()}">
-                                    <input type="hidden" name="userid" value="${curUser.getId()}">
-                                    <div><c:out value="${curUser.getUsername()}"/></div>
-                                    <button class= "search-button" type="submit">Add as friend</button>
-                                </form>
+                                <c:if test="${userInfo.getId() != curUser.getId()}">
+                                    <form action="add-friend" method="post" class="search-result">
+                                        <input type="hidden" name="myid" value="${userInfo.getId()}">
+                                        <input type="hidden" name="userid" value="${curUser.getId()}">
+                                        <div><c:out value="${curUser.getUsername()}"/></div>
+                                        <c:if test="${!userInfo.getFriends().contains(curUser.getUsername()) && !userInfo.getSent().contains(curUser.getUsername())}">
+                                            <button class= "search-button" type="submit">Add as friend</button>
+                                        </c:if>
+                                    </form>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </c:if>

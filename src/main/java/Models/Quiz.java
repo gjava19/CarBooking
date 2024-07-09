@@ -125,7 +125,7 @@ public class Quiz {
         result += "create tile = " + create_time + "\r\n";
         if(questions != null)result += "questions = " + questions + "\r\n";
 
-        return result;;
+        return result;
     }
     
     @Override

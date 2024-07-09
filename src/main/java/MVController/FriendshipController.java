@@ -86,9 +86,12 @@ public class FriendshipController {
 
     public boolean fillUserRelations(User user) throws SQLException {
         boolean ret;
-        ret = getFriendsList(user);         if(ret == false) return false;
-        ret = getReceivedRequestList(user); if(ret == false) return false;
-        ret = getSentRequestList(user);     if(ret == false) return false;
+        ret = getFriendsList(user);
+        if(!ret) return false;
+        ret = getReceivedRequestList(user);
+        if(!ret) return false;
+        ret = getSentRequestList(user);
+        if(!ret) return false;
         return true;
     }
 
