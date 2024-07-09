@@ -10,6 +10,8 @@ public class QuizTests {
     @Test
     public void quizTest(){
 
+        int id = Utils.randInt();
+        String userName = Utils.getRandomStr();
         int userId = Utils.randInt();
         String name = Utils.getRandomStr();
         String description = Utils.getRandomStr();
@@ -40,9 +42,9 @@ public class QuizTests {
 
         int sec = Utils.randInt();
         int score = Utils.randInt();
-        int id = Utils.randInt();
-        QuestionParameters qParams1 = new QuestionParameters(sec, score, id);
-        QuestionParameters qParams2 = new QuestionParameters(sec, score, id);
+        int paramID = Utils.randInt();
+        QuestionParameters qParams1 = new QuestionParameters(sec, score, paramID);
+        QuestionParameters qParams2 = new QuestionParameters(sec, score, paramID);
         QuestionParameters qParams3 = new QuestionParameters(Utils.randInt(), Utils.randInt(), Utils.randInt());
         QuestionParameters qParams4 = new QuestionParameters(Utils.randInt(), Utils.randInt(), Utils.randInt());
 
@@ -56,8 +58,10 @@ public class QuizTests {
         questions.put(q4, qParams4);
 
 
-        Quiz quiz = new Quiz(userId, name, description, createDate, randomQuestion, immediateAnswer, multiplePageQuiz, questions);
+        Quiz quiz = new Quiz(id, userName, userId, name, description, createDate, randomQuestion, immediateAnswer, multiplePageQuiz, questions);
 
+        Assert.assertEquals(id, quiz.getId());
+        Assert.assertEquals(userName, quiz.getUserName());
         Assert.assertEquals(userId, quiz.getUserId());
         Assert.assertEquals(name, quiz.getName());
         Assert.assertEquals(description, quiz.getDescription());
@@ -68,6 +72,8 @@ public class QuizTests {
         Assert.assertEquals(questions, quiz.getQuestions());
 
         Quiz quiz2 = new Quiz();
+        quiz2.setId(id);
+        quiz2.setUserName(userName);
         quiz2.setUserId(userId);
         quiz2.setName(name.substring(1));
         quiz2.setDescription(description);

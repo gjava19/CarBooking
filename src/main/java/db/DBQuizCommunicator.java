@@ -124,9 +124,14 @@ public class DBQuizCommunicator {
     public boolean deleteQuiz(String quizName) throws SQLException {
         if (!checkQuizExists(quizName))
             return false;
-        String sql = "delete from " + quizTable + " where name = ?"; // delete from history!!!!!!!!!
+        String sql = "delete from " + quizTable + " where name = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, quizName);
+
+        //delete from history
+        DBQuizHistoryCommunicator hist = new DBQuizHistoryCommunicator(con);
+        hist.clearHistoryByQuiz(getIDByQuizName(quizName));
+
         return ps.executeUpdate() > 0;
     }
 

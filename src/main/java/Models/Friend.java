@@ -19,4 +19,19 @@ public class Friend implements FriendInt{
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString(){
+        return username + " " + id;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof Friend){
+            Friend obj = (Friend) o;
+            return obj.getId() == this.getId() &&
+                    obj.getUsername().equals(this.getUsername());
+        }
+        return false;
+    }
 }

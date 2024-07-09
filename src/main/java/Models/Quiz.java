@@ -24,9 +24,11 @@ public class Quiz {
 
     public Quiz(){}
 
-    public Quiz(int userId, String name, String description, Date create_time,
+    public Quiz(int id, String userName, int userId, String name, String description, Date create_time,
                 boolean randomQuestion, boolean immediateAnswer, boolean multiplePageQuiz,
                 HashMap<QuestionType, QuestionParameters> questions) {
+        this.id = id;
+        this.userName = userName;
         this.randomQuestion = randomQuestion;
         this.immediateAnswer = immediateAnswer;
         this.multiplePageQuiz = multiplePageQuiz;
