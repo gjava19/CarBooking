@@ -25,7 +25,7 @@
                             <ul class="friends">
                                 <c:forEach var="curFriend" items="${friendList}">
                                     <li class="friend">
-                                        <img src="images/register.svg" alt="Friend 1" class="friend-picture">
+                                        <img src="images/user.png" alt="Friend 1" class="friend-picture">
                                         <span class="friend-name"><c:out value="${curFriend}"/></span>
                                     </li>
                                 </c:forEach>
@@ -46,12 +46,17 @@
                             <ul class="friends">
                                 <c:forEach var="curFriendRequest" items="${friendRequestList}">
                                     <li class="friend">
+                                        <img src="images/user.png" alt="Friend 1" class="friend-picture">
+                                        <span class="friend-name"><c:out value="${curFriendRequest.getUsername()}"/></span>
                                         <form action="approve-friend-request" method="post">
-                                            <img src="images/register.svg" alt="Friend 1" class="friend-picture">
-                                            <span class="friend-name"><c:out value="${curFriendRequest.getUsername()}"/></span>
                                             <input type="hidden" name="myid" value="${userInfo.getId()}">
                                             <input type="hidden" name="userid" value="${curFriendRequest.getId()}">
-                                            <button class= "search-button" type="submit">Approve</button>
+                                            <button class= "approve-button" type="submit">Approve</button>
+                                        </form>
+                                        <form action="reject-friend-request" method="post">
+                                            <input type="hidden" name="myid" value="${userInfo.getId()}">
+                                            <input type="hidden" name="userid" value="${curFriendRequest.getId()}">
+                                            <button class= "reject-button" type="submit">Reject</button>
                                         </form>
                                     </li>
                                 </c:forEach>
@@ -70,7 +75,7 @@
                             <ul class="friends">
                                 <c:forEach var="curSentFriendRequest" items="${sentFriendRequestList}">
                                     <li class="friend">
-                                        <img src="images/register.svg" alt="Friend 1" class="friend-picture">
+                                        <img src="images/user.png"  alt="Friend 1" class="friend-picture">
                                         <span class="friend-name"><c:out value="${curSentFriendRequest}"/></span>
                                     </li>
                                 </c:forEach>

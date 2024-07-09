@@ -85,6 +85,12 @@
     <servlet-class>Servlets.ApproveFriendRequestServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>RejectFriendRequestServlet</servlet-name>
+    <servlet-class>Servlets.RejectFriendRequestServlet</servlet-class>
+  </servlet>
+
+
   <servlet-mapping>
     <servlet-name>HomePage</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -129,6 +135,12 @@
     <servlet-name>ApproveFriendRequestServlet</servlet-name>
     <url-pattern>/approve-friend-request</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RejectFriendRequestServlet</servlet-name>
+    <url-pattern>/reject-friend-request</url-pattern>
+  </servlet-mapping>
+
 
 
   <servlet-mapping>
