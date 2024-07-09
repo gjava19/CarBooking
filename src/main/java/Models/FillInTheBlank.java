@@ -42,4 +42,14 @@ public class FillInTheBlank implements QuestionType {
     }
 
     public String getType() { return "FillInTheBlank"; }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof FillInTheBlank){
+            FillInTheBlank obj = (FillInTheBlank) o;
+            return obj.getQuestion().equals(this.getQuestion()) &&
+                    obj.getResponse().equals(this.getResponse());
+        }
+        return false;
+    }
 }

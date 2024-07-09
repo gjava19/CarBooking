@@ -63,4 +63,15 @@ public class MultipleChoice implements QuestionType {
     }
 
     public String getType() { return "MultipleChoice"; }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof MultipleChoice){
+            MultipleChoice obj = (MultipleChoice) o;
+            return obj.getQuestion().equals(this.getQuestion()) &&
+                    Arrays.equals(obj.getChoices(), this.getChoices()) &&
+                    obj.getResponse().equals(this.getResponse());
+        }
+        return false;
+    }
 }

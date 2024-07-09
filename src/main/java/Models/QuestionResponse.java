@@ -43,4 +43,14 @@ public class QuestionResponse implements QuestionType {
     }
 
     public String getType() { return "QuestionResponse"; }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof QuestionResponse){
+            QuestionResponse obj = (QuestionResponse) o;
+            return obj.getQuestion().equals(this.getQuestion()) &&
+                    obj.getResponse().equals(this.getResponse());
+        }
+        return false;
+    }
 }
